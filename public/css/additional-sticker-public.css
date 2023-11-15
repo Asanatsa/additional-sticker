@@ -1,0 +1,154 @@
+/* panel基本样式及动画  */
+.sticker-panel>img {
+    height: 100%px;
+    width: 100%px;
+
+    background-color: #f0f0f0;
+    padding: 5px;
+    margin: 3px;
+    outline: #e7e7e7 solid 1px;
+    border-radius: 3px;
+}
+
+.sticker-panel {
+    box-sizing: content-box !important;
+    position: relative;
+    /* display: inline-block; */
+
+    height: 30px;
+    width: 30px;
+}
+
+.sticker-panel * {
+    box-sizing: content-box !important;
+}
+
+.sticker-popmenu {
+    height: 250px;
+    width: 350px;
+    background-color: #f8f8f8;
+    /*outline: #dddddd solid 2px;*/
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    z-index: 10;
+    overflow: hidden;
+
+    /* display: none; */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s linear;
+}
+
+.sticker-panel:hover .sticker-popmenu {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.25s linear;
+}
+
+
+
+/* 顶部选择栏样式 */
+.sticker-rad-list {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+
+    padding: 0 10px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.sticker-rad {
+    appearance: none;
+    display: none !important;
+    /**/
+}
+
+.sticker-rad:checked+label img {
+    background-color: #e4e4e4;
+
+    transition: all 0.25s linear;
+}
+
+.sticker-logo-thumb {
+    background-color: #00000000;
+    height: 25px;
+    width: 25px;
+
+    margin: 2px;
+    padding: 7px;
+
+    border-radius: 3px;
+
+    transition: all 0.25s linear;
+}
+
+
+
+/*选择区样式*/
+.sticker-list {
+    height: 80%;
+    padding: 0 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/*表情样式*/
+.sticker-img {
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    border-radius: 4px;
+
+    background-color: #00000000;
+    transition: all 0.25s linear;
+}
+
+.sticker-img:hover {
+    background-color: #e4e4e4;
+    transition: all 0.25s linear;
+}
+
+
+
+/*滚动条样式*/
+.sticker-list::-webkit-scrollbar-button,
+.sticker-rad-list::-webkit-scrollbar-button {
+    display: none;
+}
+
+.sticker-list::-webkit-scrollbar {
+    width: 7px;
+}
+
+.sticker-rad-list::-webkit-scrollbar {
+    height: 7px;
+}
+
+.sticker-list::-webkit-scrollbar-thumb,
+.sticker-rad-list::-webkit-scrollbar-thumb {
+    background-color: #d4d4d4;
+    border-radius: 5px;
+}
+
+
+/*版权文本样式*/
+.sticker-copyright {
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+    font-size: 10px;
+    color: gray;
+}
+
+
+.text-sticker-img {
+    display: inline;
+    height: 45px;
+    width: 45px;
+}
