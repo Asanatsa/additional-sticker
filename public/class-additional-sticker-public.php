@@ -102,8 +102,13 @@ class Additional_Sticker_Public
 	}
 
 
-	//for insert sticker panel 
-
+	
+	/**
+	 * for insert sticker panel 
+	 *
+	 * @param [Array] $defaults
+	 * @return defaults
+	 */
 	public function insert_panel($defaults)
 	{
 		global $wpdb;
@@ -112,9 +117,9 @@ class Additional_Sticker_Public
 
 		$rad_html = "";
 		$sticker_list_html = "";
-		
+
 		$sticker_groups = $wpdb->get_results("SELECT * FROM `{$db_prefix}sticker_group`;");
-		
+
 
 		//莫得内容就返回“noting”
 		if (count($sticker_groups) === 0) {
@@ -172,7 +177,7 @@ class Additional_Sticker_Public
 	}
 
 
-	
+
 	public function insert_stickers($comment_text)
 	{
 		global $wpdb;
@@ -181,26 +186,21 @@ class Additional_Sticker_Public
 		$prg_text = $comment_text;
 
 		while (true) {
-			if( !preg_match('/\{(\w{1,10})#(\w{1,10})\}/i', $prg_text, $match_text_array) ){
-				break;//break loop when dosen't match any stickertext
+			if (!preg_match('/\{(\w{1,10})#(\w{1,10})\}/i', $prg_text, $match_text_array)) {
+				break; //break loop when dosen't match any stickertext
 			}
-			
+
 			$sticker_data = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$match_text_array[1]}' AND id='{$match_text_array[2]}';");
 
-			if ( count( $sticker_data ) === 0 ){
-				$prg_text = str_replace($match_text_array[0], ' [unknow] ', $prg_text);
+			if (count($sticker_data) === 0) {
+				$prg_text = str_replace($match_text_array[0], ' [unknow] ', $prg_text);  //replace when doesn't match any record
 				continue;
 			}
 
 			$sticker_img_html = "<img src='{$sticker_dir}/{$sticker_data[0]->group_id}/{$sticker_data[0]->src}' title='{$sticker_data[0]->name}' class='text-sticker-img' load='lazy'>";
 			$prg_text = str_replace($match_text_array[0], $sticker_img_html, $prg_text);
-
 		}
-		
+
 		return $prg_text;
 	}
 }
-
-
-
-
