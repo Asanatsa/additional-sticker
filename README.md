@@ -5,6 +5,11 @@ a wordpress plugin for add custom sticker to the comment
 一个支持在评论里插入自定义表情贴纸的wordpress插件
 
 
+default stickers license by 祭祭
+
+默认表情作者：祭祭，已获得作者授权
+
+
 ## Todo
 
 * [X] 实现基本替换功能
