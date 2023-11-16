@@ -3,7 +3,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://example.com
+ * @link       http://www.asanatsa.cc/project/additional-sticker
  * @since      1.0.0
  *
  * @package    Additional_Sticker
@@ -18,7 +18,7 @@
  *
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/public
- * @author     Your Name <email@example.com>
+ * @author     Asanatsa <me@asanatsa.cc>
  */
 class Additional_Sticker_Public
 {
@@ -40,6 +40,16 @@ class Additional_Sticker_Public
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
+
+
+	/**
+	 * sticker url
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 * @access private
+	 */
+	private $sticker_url = WP_CONTENT_URL . "/stickers";
 
 	/**
 	 * Initialize the class and set its properties.
@@ -102,32 +112,28 @@ class Additional_Sticker_Public
 	}
 
 
-	
+
 	/**
 	 * for insert sticker panel 
 	 *
-	 * @param [Array] $defaults
-	 * @return defaults
+	 * @param Array $defaults
+	 * @return Array
 	 */
 	public function insert_panel($defaults)
 	{
 		global $wpdb;
 		$db_prefix = $wpdb->prefix;
-		$sticker_dir = WP_CONTENT_URL . "/stickers";
 
 		$rad_html = "";
 		$sticker_list_html = "";
 
 		$sticker_groups = $wpdb->get_results("SELECT * FROM `{$db_prefix}sticker_group`;");
 
-
 		//莫得内容就返回“noting”
 		if (count($sticker_groups) === 0) {
 			$defaults['comment_field'] .= '<div class="sticker-panel"><img src="./img/shabulaji/foxing.png" height="30" width="30"><div class="sticker-popmenu"><div class="sticker-rad-list"></div><div class="sticker-list"><div style="width: 100%;margin-top: 30px;text-align: center;color: gray;">Nothing.</div></div></div></div>';
 			return $defaults;
 		}
-
-
 
 
 		foreach ($sticker_groups as $a => $single_group) {
@@ -141,16 +147,15 @@ class Additional_Sticker_Public
 				$is_hidden = "hidden";
 			}
 
-			$rad_html .= "<input type='radio' class='sticker-rad' id='{$single_group->group_id}' name='sticker-select' onclick='selectStickers()' {$is_checked}><label for='{$single_group->group_id}'><img class='sticker-logo-thumb' loading='lazy' title='{$single_group->name}' src='{$sticker_dir}/{$single_group->group_id}/{$single_group->icon}'></label>";
-
-
+			$rad_html .= "<input type='radio' class='sticker-rad' id='{$single_group->group_id}' name='sticker-select' onclick='selectStickers()' {$is_checked}><label for='{$single_group->group_id}'><img class='sticker-logo-thumb' loading='lazy' title='{$single_group->name}' src='{$this->sticker_url}/{$single_group->group_id}/{$single_group->icon}'></label>";
 
 			$stickers = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$single_group->group_id}';");
 			$g_html = "<div id='sticker-{$single_group->group_id}' data-id='{$single_group->group_id}' {$is_hidden}>";
 
 			if (count($stickers) !== 0) {
 				foreach ($stickers as $b => $s) {
-					$g_html .= "<img class='sticker-img' title='{$s->name}' data-name='{$s->id}' onclick='clickSticker(event)' loading='lazy' src='{$sticker_dir}/{$s->group_id}/{$s->src}'>";
+					$g_html .= "<img class='sticker-img' title='{$s->name}' data-name='{$s->id}' onclick='clickSticker(event)' loading='lazy' src='{$this->sticker_url}/{$s->group_id}/{$s->src}' style='display: inline;height: 45px;width: 45px;'>";
+					//add copyright notice
 					if ($b + 1 === count($stickers)) {
 						$g_html .= "<br><span class='sticker-copyright'>{$single_group->description}</span>";
 					}
@@ -164,25 +169,26 @@ class Additional_Sticker_Public
 		}
 
 
-		$out_html = "<div class='sticker-panel'><img src='{$sticker_dir}/sblj/foxing.png' height='30' width='30'><div class='sticker-popmenu'>
+		$out_html = "<div class='sticker-panel'><img src='{$this->sticker_url}/sblj/foxing.png' height='30' width='30'><div class='sticker-popmenu'>
 		<div class='sticker-rad-list'>{$rad_html}</div>
 		<div class='sticker-list'>{$sticker_list_html}</div>
 		</div></div>";
 
-		//var_dump($test);
-		//var_dump($rad_html);
-		//var_dump($sticker_list_html);
 		$defaults['comment_field'] .= $out_html;
 		return $defaults;
 	}
 
 
-
+	/**
+	 * for insert sticker to the comment text
+	 *
+	 * @param String $comment_text
+	 * @return String
+	 */
 	public function insert_stickers($comment_text)
 	{
 		global $wpdb;
 		$db_prefix = $wpdb->prefix;
-		$sticker_dir = WP_CONTENT_URL . "/stickers";
 		$prg_text = $comment_text;
 
 		while (true) {
@@ -197,7 +203,7 @@ class Additional_Sticker_Public
 				continue;
 			}
 
-			$sticker_img_html = "<img src='{$sticker_dir}/{$sticker_data[0]->group_id}/{$sticker_data[0]->src}' title='{$sticker_data[0]->name}' class='text-sticker-img' load='lazy'>";
+			$sticker_img_html = "<img src='{$this->sticker_url}/{$sticker_data[0]->group_id}/{$sticker_data[0]->src}' title='{$sticker_data[0]->name}' class='text-sticker-img' load='lazy' height='45' width='45'>";
 			$prg_text = str_replace($match_text_array[0], $sticker_img_html, $prg_text);
 		}
 

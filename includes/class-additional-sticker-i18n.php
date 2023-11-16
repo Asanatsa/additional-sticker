@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       http://example.com
+ * @link       http://www.asanatsa.cc/project/additional-sticker
  * @since      1.0.0
  *
  * @package    Additional_Sticker
@@ -22,7 +22,7 @@
  * @since      1.0.0
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/includes
- * @author     Your Name <email@example.com>
+ * @author     Asanatsa <me@asanatsa.cc>
  */
 class Additional_Sticker_i18n {
 

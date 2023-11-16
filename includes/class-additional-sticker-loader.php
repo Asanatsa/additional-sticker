@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://example.com
+ * @link       http://www.asanatsa.cc/project/additional-sticker
  * @since      1.0.0
  *
  * @package    Additional_Sticker
@@ -19,7 +19,7 @@
  *
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/includes
- * @author     Your Name <email@example.com>
+ * @author     Asanatsa <me@asanatsa.cc>
  */
 class Additional_Sticker_Loader {
 

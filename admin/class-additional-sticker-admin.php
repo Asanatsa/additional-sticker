@@ -3,7 +3,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       http://example.com
+ * @link       http://www.asanatsa.cc/project/additional-sticker
  * @since      1.0.0
  *
  * @package    Additional_Sticker
@@ -18,7 +18,7 @@
  *
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/admin
- * @author     Your Name <email@example.com>
+ * @author     Asanatsa <me@asanatsa.cc>
  */
 class Additional_Sticker_Admin {
 
