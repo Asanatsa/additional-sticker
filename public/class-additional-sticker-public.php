@@ -147,15 +147,17 @@ class Additional_Sticker_Public
 				$is_hidden = "hidden";
 			}
 
+			// output radio element
 			$rad_html .= "<input type='radio' class='sticker-rad' id='{$single_group->group_id}' name='sticker-select' onclick='selectStickers()' {$is_checked}><label for='{$single_group->group_id}'><img class='sticker-logo-thumb' loading='lazy' title='{$single_group->name}' src='{$this->sticker_url}/{$single_group->group_id}/{$single_group->icon}'></label>";
 
 			$stickers = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$single_group->group_id}';");
 			$g_html = "<div id='sticker-{$single_group->group_id}' data-id='{$single_group->group_id}' {$is_hidden}>";
 
+			// output body elements
 			if (count($stickers) !== 0) {
 				foreach ($stickers as $b => $s) {
 					$g_html .= "<img class='sticker-img' title='{$s->name}' data-name='{$s->id}' onclick='clickSticker(event)' loading='lazy' src='{$this->sticker_url}/{$s->group_id}/{$s->src}' style='display: inline;height: 45px;width: 45px;'>";
-					//add copyright notice
+					//add notice (if have)
 					if ($b + 1 === count($stickers)) {
 						$g_html .= "<br><span class='sticker-copyright'>{$single_group->description}</span>";
 					}
@@ -172,18 +174,20 @@ class Additional_Sticker_Public
 		$out_html = "<div class='sticker-panel'><img src='{$this->sticker_url}/sblj/foxing.png' height='30' width='30'><div class='sticker-popmenu'>
 		<div class='sticker-rad-list'>{$rad_html}</div>
 		<div class='sticker-list'>{$sticker_list_html}</div>
-		</div></div>";
+		</div>
+		</div>";
 
 		$defaults['comment_field'] .= $out_html;
 		return $defaults;
 	}
 
 
+	
 	/**
 	 * for insert sticker to the comment text
 	 *
-	 * @param String $comment_text
-	 * @return String
+	 * @param string $comment_text
+	 * @return string
 	 */
 	public function insert_stickers($comment_text)
 	{
@@ -195,11 +199,21 @@ class Additional_Sticker_Public
 			if (!preg_match('/\{(\w{1,10})#(\w{1,10})\}/i', $prg_text, $match_text_array)) {
 				break; //break loop when dosen't match any stickertext
 			}
+			
+			// query
+			static $cache_sticker = array();
+			$md5_key = md5("{$match_text_array[1]}{$match_text_array[2]}");
 
-			$sticker_data = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$match_text_array[1]}' AND id='{$match_text_array[2]}';");
+			if (array_key_exists($md5_key, $cache_sticker)) {
+				$sticker_data = $cache_sticker[$md5_key];
+			} else{
+				$sticker_data = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$match_text_array[1]}' AND id='{$match_text_array[2]}';");
+				$cache_sticker[$md5_key] = $sticker_data;
+			}
+			
 
 			if (count($sticker_data) === 0) {
-				$prg_text = str_replace($match_text_array[0], ' [unknow] ', $prg_text);  //replace when doesn't match any record
+				$prg_text = str_replace($match_text_array[0], __("[unknow sticker]", "additional-sticker"), $prg_text);  //replace when doesn't match any record
 				continue;
 			}
 
