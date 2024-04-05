@@ -1,13 +1,24 @@
 /* panel基本样式及动画  */
 .sticker-panel>img {
-    height: 100%px;
-    width: 100%px;
+    height: 30px;
+    width: 30px;
 
     background-color: #f0f0f0;
     padding: 5px;
     margin: 3px;
     outline: #e7e7e7 solid 1px;
     border-radius: 3px;
+}
+
+
+.text-sticker-img, .sticker-panel>img {
+    /*禁止保存图片*/
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    /*iOS*/
+    -webkit-touch-callout: none
 }
 
 .sticker-panel {
@@ -100,8 +111,9 @@
 
 /*表情样式*/
 .sticker-img {
-    height: 50px;
-    width: 50px;
+    display: inline;
+    height: 45px;
+    width: 45px;
     padding: 5px;
     border-radius: 4px;
 
