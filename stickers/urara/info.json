@@ -1,0 +1,48 @@
+{
+    "name": "",
+    "id": "",
+    "author": "",
+    "notice": "",
+    "stickers": [
+        {
+            "name": "",
+            "id": "sleepy",
+            "src": "sleepy.png"
+        },
+        {
+            "name": "",
+            "id": "sad",
+            "src": "sad.png"
+        },
+        {
+            "name": "",
+            "id": "lol",
+            "src": "lol.png"
+        },
+        {
+            "name": "",
+            "id": "wow",
+            "src": "wow.png"
+        },
+        {
+            "name": "",
+            "id": "huh",
+            "src": "huh.png"
+        },
+        {
+            "name": "",
+            "id": "supported",
+            "src": "supported.png"
+        },
+        {
+            "name": "",
+            "id": "so_what",
+            "src": "so_what.png"
+        },
+        {
+            "name": "",
+            "id": "endure",
+            "src": "endure.png"
+        }
+    ]
+}

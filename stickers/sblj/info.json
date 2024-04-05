@@ -1,0 +1,48 @@
+{
+    "name": "",
+    "id": "",
+    "author": "",
+    "notice": "",
+    "stickers": [
+        {
+            "name": "",
+            "id": "sad",
+            "src": "sad.png"
+        },
+        {
+            "name": "",
+            "id": "silly",
+            "src": "silly.png"
+        },
+        {
+            "name": "",
+            "id": "shocked",
+            "src": "shocked.png"
+        },
+        {
+            "name": "",
+            "id": "cry",
+            "src": "cry.png"
+        },
+        {
+            "name": "",
+            "id": "shy",
+            "src": "shy.png"
+        },
+        {
+            "name": "",
+            "id": "foxing",
+            "src": "foxing.png"
+        },
+        {
+            "name": "",
+            "id": "happy",
+            "src": "happy.png"
+        },
+        {
+            "name": "",
+            "id": "sleepy",
+            "src": "sleepy.png"
+        }
+    ]
+}
