@@ -20,7 +20,7 @@
  * Author:            Asanatsa
  * Author URI:        http://www.asanatsa.cc/
  * License:           GPL-3.0
- * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       additional-sticker
  * Domain Path:       /languages
  */
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.1.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ADDITIONAL_STICKER_VERSION', '0.2.0' );
+define( 'ADDITIONAL_STICKER_VERSION', '1.1.0' );
 
 /**
  * The code that runs during plugin activation.
