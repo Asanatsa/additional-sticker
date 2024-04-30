@@ -135,11 +135,11 @@
 }
 
 .sticker-list::-webkit-scrollbar {
-    width: 7px;
+    width: 5px;
 }
 
 .sticker-rad-list::-webkit-scrollbar {
-    height: 7px;
+    height: 5px;
 }
 
 .sticker-list::-webkit-scrollbar-thumb,
