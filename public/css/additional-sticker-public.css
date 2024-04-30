@@ -106,7 +106,7 @@
 /*选择区样式*/
 .sticker-list {
     height: 80%;
-    padding: 0 10px;
+    padding: 10px 10px;
     overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
@@ -117,7 +117,7 @@
     display: inline;
     height: 50px;
     width: 50px;
-    padding: 5px;
+    padding: 7px;
     border-radius: 4px;
 
     background-color: #00000000;
