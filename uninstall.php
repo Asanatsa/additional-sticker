@@ -49,13 +49,10 @@ function rm_all_dir($dir){
 
 
 global $wpdb;
-$table_name = $wpdb->prefix . 'sticker_group';
-$sql = "DROP TABLE `{$table_name}`;";
-
+$sql = "DROP TABLE `{$wpdb->prefix}sticker_group`;";
 $wpdb->query($sql);
 
-$table_name = $wpdb->prefix . 'stickers';
-$sql = "DROP TABLE `{$table_name}`;";
+$sql = "DROP TABLE `{$wpdb->prefix}stickers`;";
 $wpdb->query($sql);
 
 rm_all_dir(WP_CONTENT_DIR . "/" . "stickers");
