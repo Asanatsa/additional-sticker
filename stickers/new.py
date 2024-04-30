@@ -1,7 +1,13 @@
 import json as j
 from pathlib import *
+import sys
 
-base_dir = Path.cwd()
+
+if len(sys.argv) == 1:
+    sys.exit(1)
+
+
+base_dir = Path(sys.argv[1])
 print(base_dir)
 
 files = base_dir.glob("*.png")
@@ -10,7 +16,7 @@ l = []
 for f in files:
     l.append({"name":"", "id":f.stem, "src":f.name})
 
-o = {"name":"", "id":"", "author":"", "notice":"", "stickers":l}
+o = {"name":"", "id":base_dir.stem, "author":"", "notice":"", "icon":"","url":"", "stickers":l}
 
 print(j.dumps(o, indent = 4))
 Path(base_dir, "info.json").write_text(j.dumps(o, indent = 4), "UTF-8")

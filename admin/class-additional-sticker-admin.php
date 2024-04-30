@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       http://www.asanatsa.cc/project/additional-sticker
- * @since      1.0.0
+ * @since      1.1.0
  *
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/admin
@@ -25,7 +25,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 * @access   private
 	 * @var      string    $additional_sticker    The ID of this plugin.
 	 */
@@ -34,7 +34,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -43,7 +43,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 * @param      string    $additional_sticker       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -57,7 +57,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 */
 	public function enqueue_styles() {
 
@@ -80,7 +80,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 */
 	public function enqueue_scripts() {
 
@@ -103,30 +103,23 @@ class Additional_Sticker_Admin {
 	
 	public function additional_sticker_menu_init(){
 
+// 		add_menu_page(
+// 			'测试页面',
+// 			'测试选项',
+// 			'manage_options',
+// 			'additional_sticker_menu',
+// 			'additional_sticker_section_cb',
+// 			'',
+// 			13
+// 		);
+// 	}
+
+// }
+// function additional_sticker_section_cb() {
+// 	echo "test1";
+// }
 
 
-		add_menu_page(
-			'测试页面',
-			'测试选项',
-			'manage_options',
-			'additional_sticker_menu',
-			'additional_sticker_section_cb',
-			'',
-			13
-		);
-	}
-
-}
-
-
-
-
-
-function additional_sticker_section_cb() {
-	echo "test1";
-}
-
-
-function additional_sticker_field_cb () {
-	echo "test2";
+// function additional_sticker_field_cb () {
+// 	echo "test2";
 }

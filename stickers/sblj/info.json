@@ -1,46 +1,48 @@
 {
-    "name": "",
-    "id": "",
-    "author": "",
-    "notice": "",
+    "name": "待兼诗歌剧",
+    "id": "sblj",
+    "author": "是我祭祭哒",
+    "notice": "@是我祭祭哒",
+    "icon": "foxing.png",
+    "url": "",
     "stickers": [
         {
-            "name": "",
+            "name": "悲",
             "id": "sad",
             "src": "sad.png"
         },
         {
-            "name": "",
+            "name": "傻",
             "id": "silly",
             "src": "silly.png"
         },
         {
-            "name": "",
+            "name": "惊",
             "id": "shocked",
             "src": "shocked.png"
         },
         {
-            "name": "",
+            "name": "哭",
             "id": "cry",
             "src": "cry.png"
         },
         {
-            "name": "",
+            "name": "害羞",
             "id": "shy",
             "src": "shy.png"
         },
         {
-            "name": "",
+            "name": "佛性",
             "id": "foxing",
             "src": "foxing.png"
         },
         {
-            "name": "",
+            "name": "乐",
             "id": "happy",
             "src": "happy.png"
         },
         {
-            "name": "",
+            "name": "困",
             "id": "sleepy",
             "src": "sleepy.png"
         }

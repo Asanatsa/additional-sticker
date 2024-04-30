@@ -20,7 +20,7 @@
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
  * @link       http://www.asanatsa.cc/project/additional-sticker
- * @since      1.0.0
+ * @since      1.1.0
  *
  * @package    Additional_Sticker
  */
@@ -30,7 +30,23 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 	exit;
 }
 
-require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+function rm_all_dir($dir){
+	if (!is_dir($dir)){
+		return false;
+	}
+
+	foreach (scandir($dir) as $s) {
+		if ($s === "." || $s === ".."){
+			continue;
+		} elseif (is_dir($dir . "/" . $s)) {
+			rm_all_dir($dir . "/" . $s);
+		} else{
+			unlink($dir . "/" . $s);
+		}
+	}
+	rmdir($dir);
+}
+
 
 global $wpdb;
 $table_name = $wpdb->prefix . 'sticker_group';
@@ -41,3 +57,5 @@ $wpdb->query($sql);
 $table_name = $wpdb->prefix . 'stickers';
 $sql = "DROP TABLE `{$table_name}`;";
 $wpdb->query($sql);
+
+rm_all_dir(WP_CONTENT_DIR . "/" . "stickers");

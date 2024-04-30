@@ -1,46 +1,48 @@
 {
-    "name": "",
-    "id": "",
-    "author": "",
-    "notice": "",
+    "name": "乌拉拉",
+    "id": "urara",
+    "author": "是我祭祭哒",
+    "notice": "@是我祭祭哒",
+    "icon": "supported.png",
+    "url": "",
     "stickers": [
         {
-            "name": "",
+            "name": "困",
             "id": "sleepy",
             "src": "sleepy.png"
         },
         {
-            "name": "",
+            "name": "伤心",
             "id": "sad",
             "src": "sad.png"
         },
         {
-            "name": "",
+            "name": "嘲笑",
             "id": "lol",
             "src": "lol.png"
         },
         {
-            "name": "",
+            "name": "哇哦",
             "id": "wow",
             "src": "wow.png"
         },
         {
-            "name": "",
+            "name": "得意",
             "id": "huh",
             "src": "huh.png"
         },
         {
-            "name": "",
+            "name": "打call",
             "id": "supported",
             "src": "supported.png"
         },
         {
-            "name": "",
+            "name": "嫌弃",
             "id": "so_what",
             "src": "so_what.png"
         },
         {
-            "name": "",
+            "name": "忍住",
             "id": "endure",
             "src": "endure.png"
         }

@@ -1,0 +1,50 @@
+{
+    "name": "无声铃鹿",
+    "id": "suzuka",
+    "author": "是我祭祭哒",
+    "notice": "@是我祭祭哒",
+    "icon": "2.png",
+    "url": "",
+    "stickers": [
+        {
+            "name": "期待",
+            "id": "1",
+            "src": "1.png"
+        },
+        {
+            "name": "喝茶",
+            "id": "2",
+            "src": "2.png"
+        },
+        {
+            "name": "祈祷",
+            "id": "3",
+            "src": "3.png"
+        },
+        {
+            "name": "萝卜",
+            "id": "4",
+            "src": "4.png"
+        },
+        {
+            "name": "怒",
+            "id": "5",
+            "src": "5.png"
+        },
+        {
+            "name": "思考",
+            "id": "6",
+            "src": "6.png"
+        },
+        {
+            "name": "红包",
+            "id": "7",
+            "src": "7.png"
+        },
+        {
+            "name": "羞",
+            "id": "8",
+            "src": "8.png"
+        }
+    ]
+}

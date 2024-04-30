@@ -4,7 +4,7 @@
  * The public-facing functionality of the plugin.
  *
  * @link       http://www.asanatsa.cc/project/additional-sticker
- * @since      1.0.0
+ * @since      1.1.0
  *
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/public
@@ -26,7 +26,7 @@ class Additional_Sticker_Public
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 * @access   private
 	 * @var      string    $additional_sticker    The ID of this plugin.
 	 */
@@ -35,7 +35,7 @@ class Additional_Sticker_Public
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -45,7 +45,7 @@ class Additional_Sticker_Public
 	/**
 	 * sticker url
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 * @var string
 	 * @access private
 	 */
@@ -54,7 +54,7 @@ class Additional_Sticker_Public
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 * @param      string    $additional_sticker       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -68,7 +68,7 @@ class Additional_Sticker_Public
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 */
 	public function enqueue_styles()
 	{
@@ -91,7 +91,7 @@ class Additional_Sticker_Public
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since    1.1.0
 	 */
 	public function enqueue_scripts()
 	{

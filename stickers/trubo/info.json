@@ -1,0 +1,50 @@
+{
+    "name": "双涡轮",
+    "id": "trubo",
+    "author": "是我祭祭哒",
+    "notice": "@是我祭祭哒",
+    "icon": "3.png",
+    "url": "",
+    "stickers": [
+        {
+            "name": "喊",
+            "id": "1",
+            "src": "1.png"
+        },
+        {
+            "name": "委屈",
+            "id": "2",
+            "src": "2.png"
+        },
+        {
+            "name": "自信",
+            "id": "3",
+            "src": "3.png"
+        },
+        {
+            "name": "困",
+            "id": "4",
+            "src": "4.png"
+        },
+        {
+            "name": "好",
+            "id": "5",
+            "src": "5.png"
+        },
+        {
+            "name": "害羞",
+            "id": "6",
+            "src": "6.png"
+        },
+        {
+            "name": "智力up",
+            "id": "7",
+            "src": "7.png"
+        },
+        {
+            "name": "生气",
+            "id": "8",
+            "src": "8.png"
+        }
+    ]
+}
