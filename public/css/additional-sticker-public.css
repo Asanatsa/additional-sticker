@@ -10,6 +10,9 @@
     border-radius: 3px;
 }
 
+.sticker-panel label {
+    margin: 0;
+}
 
 .text-sticker-img, .sticker-panel>img {
     /*禁止保存图片*/

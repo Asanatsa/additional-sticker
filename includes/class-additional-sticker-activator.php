@@ -32,6 +32,11 @@ class Additional_Sticker_Activator
 	 */
 	public static function activate()
 	{
+		global $wpdb;
+		if($wpdb->query("SELECT * FROM `{$wpdb->prefix}stickers`")){
+			return true;
+		}
+
 		include dirname(__FILE__) . "/". "class-additional-sticker-setup.php";
 
 		// init db (create table)
