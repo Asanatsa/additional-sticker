@@ -15,6 +15,12 @@
     max-width: none !important;
 }
 
+@media screen and ( max-width: 24.5em ) {
+    .sticker-popmenu {
+        width: 85vw !important;
+    }
+}
+
 
 /*禁止保存图片*/
 .text-sticker-img {
@@ -62,13 +68,16 @@
     border-radius: 5px;
     box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.15);
     position: absolute;
-    z-index: 100;
+
+    /* 致敬每一位把元素z-index设成999的傻逼😅 */
+    z-index: 99999;
+
     overflow: hidden;
 
     /* display: none; */
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25s linear;
+    transition: all 0.2s linear;
 }
 
 .sticker-panel:hover .sticker-popmenu {
