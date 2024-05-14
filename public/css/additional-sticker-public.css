@@ -8,17 +8,20 @@
 
 .sticker-panel label {
     all: initial;
+    
     margin: 0;
     padding: 0;
 }
 
 .sticker-panel * {
     max-width: none !important;
+    box-sizing: border-box !important;
+
 }
 
-@media screen and ( max-width: 24.5em ) {
+@media screen and ( max-width: 380px ) {
     .sticker-popmenu {
-        width: 85vw !important;
+        width: 82vw !important;
     }
 }
 
@@ -94,7 +97,6 @@
 
 /* 顶部选择栏样式 */
 .sticker-rad-list {
-    
     all: initial;/* 防止主题样式污染 */
 
     width: 100%;
@@ -104,7 +106,7 @@
     flex-wrap: nowrap;
     align-items: center;
     background-color: #f3f3f3;
-    box-sizing: border-box !important;
+    box-sizing: border-box;
 
     overflow-x: auto;
     overflow-y: hidden;
@@ -125,12 +127,15 @@
 
 /* logo 样式 */
 .sticker-logo-thumb {
+    all: initial;
+    box-sizing: border-box;
+
     background-color: #00000000;
-    height: 2em;
-    width: 2em;
+    height: 2.5em;
+    width: 2.5em;
 
     margin: 0em 0.4em;
-    padding: 0.4em;
+    padding: 0.3em;
 
     border-radius: 3px;
 
@@ -143,30 +148,30 @@
 .sticker-list {
     height: 80%;
     padding: 1em;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
 
     overflow-y: auto;
     overflow-x: hidden;
-    box-sizing: border-box !important;
 }
 
 /*表情样式*/
 .sticker-img {
+    all: initial;
+    box-sizing: border-box;
+
     display: inline;
-    height: 3.2em;
-    width: 3.2em;
+    
+    height: 4em;
+    width: 4em;
     padding: 7px;
     border-radius: 4px;
 
     background-color: #00000000;
-    transition: all 0.25s linear;
+    transition: all 0.15s linear;
 }
 
 .sticker-img:hover {
     background-color: #e4e4e4;
-    transition: all 0.25s linear;
+    transition: all 0.15s linear;
 }
 
 
