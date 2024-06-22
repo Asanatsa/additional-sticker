@@ -116,9 +116,19 @@ class Additional_Sticker_Admin {
 
 
 	public function render_additional_sticker_page() {
+		echo '<h1>Additional sticker</h1>';
+		
 		// test 
-		if (isset($_GET['test'])){
-			printf('<div class="notice notice-alt notice-success is-dismissible">接收到的参数: %s</div>', esc_html($_GET['test']));
+		if (isset($_GET['action'])){
+			include plugin_dir_path( __FILE__ ) . "../includes/". "class-additional-sticker-functions.php";
+			
+			if ($_GET['action'] === "delete" && isset($_GET['group_id'])) {
+				if (Additional_sticker_functions::remove_sticker($_GET['group_id'])) {
+					echo '<div class="notice notice-success notice-alt is-dismissible inline"><p>删除表情成功</p></div>';
+				} else {
+					echo '<div class="notice notice-error notice-alt is-dismissible inline"><p>删除表情失败</p></div>';
+				}
+			}
 		}
 
 
