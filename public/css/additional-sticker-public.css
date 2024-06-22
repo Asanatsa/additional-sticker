@@ -7,7 +7,7 @@
 }
 
 .sticker-panel label {
-    all: initial;
+    /* all: initial; */
     
     margin: 0;
     padding: 0;
@@ -19,7 +19,7 @@
 
 }
 
-@media screen and ( max-width: 380px ) {
+@media screen and ( max-width: 400px ) {
     .sticker-popmenu {
         width: 82vw !important;
     }
@@ -51,15 +51,11 @@
 
     height: 3rem;
     width: 3rem;
-    flex-basis: 3rem !important;
     margin: 0em 0.5em 1em 0.5em;
 
     background-color: #f0f0f0;
     outline: #e7e7e7 solid 1px;
     border-radius: 3px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
 }
 
 
@@ -97,7 +93,8 @@
 
 /* 顶部选择栏样式 */
 .sticker-rad-list {
-    all: initial;/* 防止主题样式污染 */
+    /* 防止主题样式污染 */
+    /* all: initial; */
 
     width: 100%;
     height: 23%;
@@ -127,7 +124,7 @@
 
 /* logo 样式 */
 .sticker-logo-thumb {
-    all: initial;
+
     box-sizing: border-box;
 
     background-color: #00000000;
@@ -155,7 +152,6 @@
 
 /*表情样式*/
 .sticker-img {
-    all: initial;
     box-sizing: border-box;
 
     display: inline;
