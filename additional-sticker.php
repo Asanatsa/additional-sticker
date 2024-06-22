@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              http://www.asanatsa.cc
- * @since             1.1.0
+ * @since             1.1.1
  * @package           Additional_Sticker
  *
  * @wordpress-plugin
  * Plugin Name:       自定义表情
  * Plugin URI:        http://www.asanatsa.cc/additional-sticker/
  * Description:       在评论里添加自定义的表情贴纸
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Asanatsa
  * Author URI:        http://www.asanatsa.cc/
  * License:           GPL-3.0
@@ -32,10 +32,10 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Currently plugin version.
- * Start at version 1.1.0 and use SemVer - https://semver.org
+ * Start at version 1.1.1 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ADDITIONAL_STICKER_VERSION', '1.1.0' );
+define( 'ADDITIONAL_STICKER_VERSION', '1.1.1' );
 
 /**
  * The code that runs during plugin activation.
@@ -71,7 +71,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-additional-sticker.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.1.0
+ * @since    1.1.1
  */
 function run_additional_sticker() {
 

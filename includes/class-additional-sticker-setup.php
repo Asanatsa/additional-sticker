@@ -2,7 +2,7 @@
 /**
  * 
  * 
- * @since    1.1.0
+ * @since    1.1.1
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/includes
  */

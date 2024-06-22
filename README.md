@@ -1,10 +1,6 @@
 # Additional Sticker
 
-a wordpress plugin for add custom sticker to the comment
-
 一个支持在评论里插入自定义表情贴纸的wordpress插件
-
-default stickers license by [@是我祭祭哒](https://space.bilibili.com/9369485)
 
 默认表情作者：[@是我祭祭哒](https://space.bilibili.com/9369485)，已获得作者授权
 

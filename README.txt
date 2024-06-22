@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
+Contributors: Asanatsa
 Donate link: http://www.asanatsa.cc/project/additional-sticker/
 Tags: comments
 Requires at least: 3.0.1

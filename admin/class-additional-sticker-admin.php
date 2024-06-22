@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       http://www.asanatsa.cc/project/additional-sticker
- * @since      1.1.0
+ * @since      1.1.1
  *
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/admin
@@ -25,7 +25,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.1.0
+	 * @since    1.1.1
 	 * @access   private
 	 * @var      string    $additional_sticker    The ID of this plugin.
 	 */
@@ -34,7 +34,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.1.0
+	 * @since    1.1.1
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -43,7 +43,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.1.0
+	 * @since    1.1.1
 	 * @param      string    $additional_sticker       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -57,7 +57,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since    1.1.0
+	 * @since    1.1.1
 	 */
 	public function enqueue_styles() {
 
@@ -80,7 +80,7 @@ class Additional_Sticker_Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    1.1.0
+	 * @since    1.1.1
 	 */
 	public function enqueue_scripts() {
 

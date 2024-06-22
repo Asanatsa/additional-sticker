@@ -4,7 +4,7 @@
  * Fired during plugin activation
  *
  * @link       http://www.asanatsa.cc/project/additional-sticker
- * @since      1.1.0
+ * @since      1.1.1
  *
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/includes
@@ -15,7 +15,7 @@
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
- * @since      1.1.0
+ * @since      1.1.1
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/includes
  * @author     Asanatsa <me@asanatsa.cc>
@@ -28,7 +28,7 @@ class Additional_Sticker_Activator
 	 *
 	 * Long Description.
 	 *
-	 * @since    1.1.0
+	 * @since    1.1.1
 	 */
 	public static function activate()
 	{
