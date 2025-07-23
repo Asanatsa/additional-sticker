@@ -238,11 +238,11 @@ class Additional_Sticker_Public
 
 
 			if (count($sticker_data) === 0) {
-				$prg_text = str_replace($match_text_array[0], __("[unknow sticker]", "additional-sticker"), $prg_text);  //replace when doesn't match any record
+				$prg_text = str_replace($match_text_array[0], __("[unknown sticker]", "additional-sticker"), $prg_text);  //replace when doesn't match any record
 				continue;
 			}
 
-			$sticker_img_html = "<img src='{$this->sticker_url}/{$sticker_data[0]->group_id}/{$sticker_data[0]->src}' title='{$sticker_data[0]->name}' class='text-sticker-img' load='lazy' oncontextmenu='return false;' ondragstart='return false;' onmousedown='document.selection.empty()'>";
+			$sticker_img_html = "<img src='{$this->sticker_url}/{$sticker_data[0]->group_id}/{$sticker_data[0]->src}' title='{$sticker_data[0]->name}' class='text-sticker-img' loading='lazy' oncontextmenu='return false;' ondragstart='return false;' onmousedown='document.selection.empty()'>";
 			$prg_text = str_replace($match_text_array[0], $sticker_img_html, $prg_text);
 		}
 
