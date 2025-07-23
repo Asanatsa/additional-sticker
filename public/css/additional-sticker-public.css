@@ -1,7 +1,13 @@
 /* panel基本样式及动画  */
+
+.sticker-panel * {
+    max-width: none !important;
+    box-sizing: border-box !important;
+
+}
 .sticker-panel>img {
-    height: 90%;
-    width: 90%;
+    height: 3rem;
+    width: 3rem;
 
     margin: 3px;
 }
@@ -13,11 +19,7 @@
     padding: 0;
 }
 
-.sticker-panel * {
-    max-width: none !important;
-    box-sizing: border-box !important;
 
-}
 
 @media screen and ( max-width: 400px ) {
     .sticker-popmenu {

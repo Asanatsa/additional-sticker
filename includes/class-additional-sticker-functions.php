@@ -1,12 +1,19 @@
 <?php
 /**
- * 
+ * exract functions of plugin
  * 
  * @since    1.1.1
  * @package    Additional_Sticker
  * @subpackage Additional_Sticker/includes
  */
-class Additional_sticker_setup {
+class Additional_sticker_functions {
+    /**
+     * add sticker from dir
+     *
+     * @since 1.1.1
+     * @param string $source_dir source dir
+     * @return bool
+     */
     public static function add_stiker($source_dir){
 
         global $wpdb;
@@ -22,6 +29,11 @@ class Additional_sticker_setup {
 
         //covert info.json to array
         $data = json_decode(file_get_contents($source_dir . "/info.json"));
+
+
+        if (is_null($data) || !isset($data->id) || !isset($data->name) || !isset($data->icon) || !isset($data->stickers)) {
+            return false;
+        }
 
 
         $s = $sticker_dir . "/" . $data->id;
@@ -46,10 +58,16 @@ class Additional_sticker_setup {
 
         }
 
+        $notice = isset($data->notice) ? $data->notice : "";
+        $author = isset($data->author) ? $data->author : "";
+        $url = isset($data->url) ? $data->url : "";
+        $copyright = isset($data->copyright) ? $data->copyright : "";
+
+
+
         //insert to db
-        $info_sql = "INSERT IGNORE INTO `{$wpdb->prefix}sticker_group` (`group_id`, `name`, `icon`, `description`, `author`, `url`) VALUES 
-        ('{$data->id}', '{$data->name}', '{$data->icon}', '{$data->notice}', '{$data->author}', '{$data->url}');
-    ";
+        $info_sql = "INSERT IGNORE INTO `{$wpdb->prefix}sticker_group` (`group_id`, `name`, `icon`, `description`, `author`, `copyright`, `url`) VALUES 
+        ('{$data->id}', '{$data->name}', '{$data->icon}', '{$notice}', '{$author}', '{$copyright}', '{$url}');";
 
         if (!$wpdb->query($info_sql)) {
             return false;
@@ -71,7 +89,11 @@ class Additional_sticker_setup {
         return true;
     }
 
-
+    /**
+     * init db
+     *
+     * @since 1.1.1
+     */
     public static function init_db(){
         global $wpdb;
 
@@ -91,12 +113,21 @@ class Additional_sticker_setup {
 			`icon` text NOT NULL,
 			`description` text NOT NULL,
 			`author` text NOT NULL,
+            `copyright` text NOT NULL,
 			`url` text NOT NULL,
+            `enabled` int NOT NULL DEFAULT 1,
 			PRIMARY KEY (`group_id`)
 		  ) ENGINE=`InnoDB`;";// MyISAM dosen't support large-size key
 		$wpdb->query($sql);
     }
 
+    /**
+     * remove dir and all files in it
+     *
+     * @since 1.1.1
+     * @param string $dir dir to remove
+     * @return bool
+     */
     public static function rm_all_dir($dir){
         if (!is_dir($dir)){
             return false;
@@ -113,5 +144,38 @@ class Additional_sticker_setup {
         }
         rmdir($dir);
     }
+
+    /**
+     * remove sticker
+     *
+     * @since 2.0.0
+     * @param string $group_id group id of sticker
+     * @return bool
+     */
+    public static function remove_sticker($group_id){
+        global $wpdb;
+
+        if (is_null($group_id)){
+            return false;
+        }
+        
+        // check if group_id exists
+        $rn = $wpdb->query("SELECT * FROM `{$wpdb->prefix}sticker_group` WHERE group_id='{$group_id}';");
+        if ($rn === 0 || $rn === false) {
+            return false;
+        }
+
+        $dir = WP_CONTENT_DIR . "/" . "stickers" . "/" . $group_id;
+        if (file_exists($dir)){
+            self::rm_all_dir($dir);
+        }
+
+        $wpdb->query("DELETE FROM `{$wpdb->prefix}stickers` WHERE group_id='{$group_id}';");
+        $wpdb->query("DELETE FROM `{$wpdb->prefix}sticker_group` WHERE group_id='{$group_id}';");
+
+        return true;
+
+    }
+
 }
 ?>

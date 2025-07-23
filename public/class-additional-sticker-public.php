@@ -51,6 +51,17 @@ class Additional_Sticker_Public
 	 */
 	private $sticker_url = WP_CONTENT_URL . "/stickers";
 
+
+
+	/**
+	 * cache sticker data
+	 * 
+	 * @since 2.0.0
+	 * @var array
+	 * @access private
+	 */
+	private static $cache_sticker = array();
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -119,6 +130,8 @@ class Additional_Sticker_Public
 	 * @param Array $defaults
 	 * @return Array
 	 */
+
+	//TODO: optimize logic
 	public function insert_panel($defaults)
 	{
 		global $wpdb;
@@ -213,14 +226,14 @@ class Additional_Sticker_Public
 			}
 
 			// query
-			static $cache_sticker = array();
+			//static self::$cache_sticker = array();
 			$md5_key = md5("{$match_text_array[1]}{$match_text_array[2]}");
 
-			if (array_key_exists($md5_key, $cache_sticker)) {
-				$sticker_data = $cache_sticker[$md5_key];
+			if (array_key_exists($md5_key, self::$cache_sticker)) {
+				$sticker_data = self::$cache_sticker[$md5_key];
 			} else {
 				$sticker_data = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$match_text_array[1]}' AND id='{$match_text_array[2]}';");
-				$cache_sticker[$md5_key] = $sticker_data;
+				self::$cache_sticker[$md5_key] = $sticker_data;
 			}
 
 

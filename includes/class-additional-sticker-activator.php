@@ -37,17 +37,17 @@ class Additional_Sticker_Activator
 			return true;
 		}
 
-		include dirname(__FILE__) . "/". "class-additional-sticker-setup.php";
+		include dirname(__FILE__) . "/". "class-additional-sticker-functions.php";
 
 		// init db (create table)
-		Additional_sticker_setup::init_db();
+		Additional_sticker_functions::init_db();
 
 		$s = dirname(dirname(__FILE__)) . "/" . "stickers";
 		
 		foreach (scandir($s) as $f) {
 			if (!is_dir($s . "/" . $f) || $f === "." || $f ===".."){
 				continue;
-			} elseif (!Additional_sticker_setup::add_stiker($s . "/" . $f)) {
+			} elseif (!Additional_sticker_functions::add_stiker($s . "/" . $f)) {
 				wp_die("add stiker failed", "Error");
 			}
 		}

@@ -95,10 +95,106 @@ class Additional_Sticker_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'jquery-ui-sortable' , '', array( 'jquery' ));
+		wp_enqueue_script('jquery-ui-touch-punch', plugin_dir_url( __FILE__ ) . 'js/lib/jquery.ui.touch-punch.js', array('jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-sortable'), '0.2.3', false);
 		wp_enqueue_script( $this->additional_sticker, plugin_dir_url( __FILE__ ) . 'js/additional-sticker-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
+	public function additional_sticker_menu_init() {
+		add_menu_page(
+			__( 'Additional Sticker', 'additional-sticker' ),
+			__( 'Additional Sticker', 'additional-sticker' ),
+			'manage_options',
+			"additional-sticker",
+			array( $this, 'render_additional_sticker_page' ),
+			'dashicons-format-image',
+			6
+		);
+	}
+
+
+	public function render_additional_sticker_page() {
+		// test 
+		if (isset($_GET['test'])){
+			printf('<div class="notice notice-alt notice-success is-dismissible">接收到的参数: %s</div>', esc_html($_GET['test']));
+		}
+
+
+
+
+		echo '<h2>上传表情文件</h2>';
+		echo '<p>请上传后缀为stikpck的表情文件</p>';
+
+		echo '<h2>已安装表情列表</h2>';
+		global $wpdb;
+		$stickers = $wpdb->get_results("SELECT * FROM `{$wpdb->prefix}sticker_group`;");
+
+		if( count($stickers) === 0) {
+			echo '<p>暂无表情</p>';
+		} else {
+
+			echo '<table class="wp-list-table widefat fixed striped" >';
+			echo '<thead><tr>';
+			echo '<th scope="col" class="manage-column column-cb check-column"><input type="checkbox" id="group-select-all">';
+			echo '<label for="group-select-all" class="screen-reader-text">全选</th>';
+
+			echo '<th scope="col" class="manage-column column-primary column-title">名称</th>';
+			echo '<th scope="col" class="manage-column">表情组ID</th>';
+			echo '<th scope="col" class="manage-column">描述</th>';
+			echo '<th scope="col" class="manage-column">作者</th>';
+			echo '<th scope="col" class="manage-column">链接</th>';
+			//echo '<th>操作</th>';
+			echo '</tr></thead>';
+
+			echo '<tbody id="sticker-list">';
+
+			foreach ($stickers as $sticker) {
+				
+				echo '<tr id="' . esc_html($sticker->group_id) . '">';
+
+				// checkbox
+				echo '<th scope="row" class="check-column"><input type="checkbox" class="sticker-checkbox" id="group-checkbox-' . esc_html($sticker->group_id) . '">';
+				echo '<label for="group-checkbox-' . esc_html($sticker->group_id) . '" class="screen-reader-text">选择表情</label>';
+				echo '</th>';
+
+				// name
+				echo '<td scope="row" class="column-primary" data-colname="名称">';
+				echo '<img src="' . esc_url(WP_CONTENT_URL . '/stickers/' . $sticker->group_id . '/' . $sticker->icon) . '" alt="' . esc_attr($sticker->name) . '" style="width: 50px; height: 50px;">';
+				echo esc_html($sticker->name); 
+				echo '<div class="row-actions">';
+				echo '<span class="delete"><a href="' . esc_url(admin_url('admin.php?page=additional-sticker&action=delete&group_id=' . $sticker->group_id)) . '" class="delete-sticker" data-group-id="' . esc_html($sticker->group_id) . '">删除</a></span>';
+				echo '</div>';
+				// wordpress toggle button
+				echo '<button type="button" class="toggle-row"></button>';
+				echo '</td>';
+
+				// group_id
+				echo '<td scope="row" data-colname="表情组ID">' . esc_html($sticker->group_id) . '</td>';
+				
+				
+				echo '<td scope="row" data-colname="描述">' . esc_html($sticker->description) . '</td>';
+				echo '<td scope="row" data-colname="作者">' . esc_html($sticker->author) . '</td>';
+				echo '<td scope="row" data-colname="链接"><a href="' . esc_url($sticker->url) . '" target="_blank">' . esc_html($sticker->url) . '</a></td>';
+				//echo '<td scope="row"><a href="#" class="button remove-sticker" data-group-id="' . esc_html($sticker->group_id) . '">删除</a></td>';
+				echo '</tr>';
+			}
+
+			echo '</tbody>';
+			echo '</table>';
+		}
+			// echo '<ul id="sticker-list">';
+			// foreach ($stickers as $sticker) {
+			// 	echo '<li class="sticker-item">';
+			// 	echo '<img src="' . esc_url(WP_CONTENT_DIR . '/stickers/' . $sticker->group_id . '/' . $sticker->icon) . '" alt="' . esc_attr($sticker->name) . '">';
+			// 	echo '<span>' . esc_html($sticker->name) . '</span>';
+			// 	echo '</li>';
+			// }
+			// echo '</ul>';
+		
+
+	}
 	
 }
+
