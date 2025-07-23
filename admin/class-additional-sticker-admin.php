@@ -131,9 +131,6 @@ class Additional_Sticker_Admin {
 		echo '<h1>Additional sticker</h1>';
 
 
-		echo get_temp_dir();
-		
-		// test 
 		if (isset($_GET['action'])){
 			include plugin_dir_path( __FILE__ ) . "../includes/". "class-additional-sticker-functions.php";
 			switch ($_GET['action']) {
@@ -148,7 +145,7 @@ class Additional_Sticker_Admin {
 					}
 
 					echo '<script>history.pushState(null, null, "admin.php?page=additional-sticker");</script>';
-					
+
 					break;
 
 
