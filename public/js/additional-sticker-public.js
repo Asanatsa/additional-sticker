@@ -13,6 +13,8 @@ function clickSticker(event) {
 function selectStickers() {
 	for (let i = 0; i < radEle.length; i++) {
 		let ele = document.getElementById("sticker-" + radEle[i].id);
+		let ele2 = document.getElementById("copyright-" + radEle[i].id);
+		ele2.hidden = !radEle[i].checked;
 		ele.hidden = !radEle[i].checked;
 	}
 }

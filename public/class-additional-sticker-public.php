@@ -174,7 +174,7 @@ class Additional_Sticker_Public
 			</label>";
 
 			$stickers = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$single_group->group_id}';");
-			$g_html = "<div id='sticker-{$single_group->group_id}' data-id='{$single_group->group_id}' {$is_hidden}>";
+			$g_html = "<div class='sticker-sublist' id='sticker-{$single_group->group_id}' data-id='{$single_group->group_id}' {$is_hidden}>";
 
 			// output body elements
 			if (count($stickers) !== 0) {
@@ -182,7 +182,7 @@ class Additional_Sticker_Public
 					$g_html .= "<img class='sticker-img' title='{$s->name}' data-name='{$s->id}' onclick='clickSticker(event)' loading='lazy' src='{$this->sticker_url}/{$s->group_id}/{$s->src}' oncontextmenu='return false;' ondragstart='return false;'>";
 					//add notice (if have)
 					if ($b + 1 === count($stickers)) {
-						$g_html .= "<br><span class='sticker-copyright'>{$single_group->description}</span>";
+						//$g_html .= "<br><span class='sticker-copyright' id='copyright-{$single_group->group_id}'>{$single_group->description}</span>";
 					}
 				}
 			} else {
@@ -190,6 +190,7 @@ class Additional_Sticker_Public
 			}
 
 			$g_html .= '</div>';
+			$g_html .= "<span class='sticker-copyright' id='copyright-{$single_group->group_id}' {$is_hidden}>{$single_group->copyright}</span>";
 			$sticker_list_html .= $g_html;
 		}
 
