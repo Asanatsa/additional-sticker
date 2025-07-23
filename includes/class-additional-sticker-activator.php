@@ -47,7 +47,7 @@ class Additional_Sticker_Activator
 		foreach (scandir($s) as $f) {
 			if (!is_dir($s . "/" . $f) || $f === "." || $f ===".."){
 				continue;
-			} elseif (!Additional_sticker_functions::add_stiker($s . "/" . $f)) {
+			} elseif (!Additional_sticker_functions::add_stiker($s . "/" . $f)[0]) {
 				wp_die("add stiker failed", "Error");
 			}
 		}

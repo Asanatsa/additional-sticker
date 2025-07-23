@@ -41,6 +41,18 @@ class Additional_Sticker_Admin {
 	private $version;
 
 	/**
+	 * sticker url
+	 *
+	 * @since 1.1.1
+	 * @var string
+	 * @access private
+	 */
+	private $notice_type = array(array('type' => 'error', 'dismissible' => true, array('additional_classes' => 'notice-alt')),
+		array('type' => 'success', 'dismissible' => true, array('additional_classes' => 'notice-alt')),
+		array('type' => 'warning', 'dismissible' => true, array('additional_classes' => 'notice-alt')),
+		array('type' => 'info', 'dismissible' => true, array('additional_classes' => 'notice-alt')));
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.1.1
@@ -117,25 +129,80 @@ class Additional_Sticker_Admin {
 
 	public function render_additional_sticker_page() {
 		echo '<h1>Additional sticker</h1>';
+
+
+		echo get_temp_dir();
 		
 		// test 
 		if (isset($_GET['action'])){
 			include plugin_dir_path( __FILE__ ) . "../includes/". "class-additional-sticker-functions.php";
-			
-			if ($_GET['action'] === "delete" && isset($_GET['group_id'])) {
-				if (Additional_sticker_functions::remove_sticker($_GET['group_id'])) {
-					echo '<div class="notice notice-success notice-alt is-dismissible inline"><p>删除表情成功</p></div>';
-				} else {
-					echo '<div class="notice notice-error notice-alt is-dismissible inline"><p>删除表情失败</p></div>';
-				}
+			switch ($_GET['action']) {
+
+				case 'delete':
+					if (isset($_GET['group_id'])) {
+						if (Additional_sticker_functions::remove_sticker($_GET['group_id'])) {
+							wp_admin_notice('删除表情成功', $this->notice_type[1]);
+						} else {
+							wp_admin_notice('删除表情失败', $this->notice_type[0]);
+						}
+					}
+
+					echo '<script>history.pushState(null, null, "admin.php?page=additional-sticker");</script>';
+					
+					break;
+
+
+				case 'upload':
+					if (isset($_FILES['sticker_file']) && $_FILES['sticker_file']['error'] === UPLOAD_ERR_OK) {
+						$tmp_dir = get_temp_dir();
+						$zip = new ZipArchive();
+						$zip_dirname = wp_generate_password(12, false);
+						$upload_file = $tmp_dir . basename($_FILES['sticker_file']['name']);
+						if (move_uploaded_file($_FILES['sticker_file']['tmp_name'], $upload_file)) {
+							if ($zip->open($upload_file) === TRUE) {
+								$zip->extractTo($tmp_dir . $zip_dirname);
+								$zip->close();
+								$result = Additional_sticker_functions::add_stiker($tmp_dir . $zip_dirname);
+								if ($result[0]) {
+									wp_admin_notice('上传表情成功', $this->notice_type[1]);
+								} else {
+									if ($result[1] === 2){
+										wp_admin_notice('表情已存在', $this->notice_type[2]);
+									}else{
+										wp_admin_notice('上传表情失败', $this->notice_type[0]);
+									}
+								}
+									
+							} else {
+								wp_admin_notice('解压缩文件失败', $this->notice_type[0]);
+							}
+
+							Additional_sticker_functions::rm_all_dir($tmp_dir . $zip_dirname);
+							unlink($upload_file);
+
+						} else {
+							wp_admin_notice('上传文件失败', $this->notice_type[0]);
+						}
+					} else {
+						wp_admin_notice('没有选择文件或文件上传错误', $this->notice_type[0]);
+					}
+
+					echo '<script>history.pushState(null, null, "admin.php?page=additional-sticker");</script>';
+
+					break;
+				
+
+				default:
+					wp_admin_notice('( O_o) ?', $this->notice_type[2]);
+					break;
 			}
+			
 		}
 
 
 
 
-		echo '<h2>上传表情文件</h2>';
-		echo '<p>请上传后缀为stikpck的表情文件</p>';
+		
 
 		echo '<h2>已安装表情列表</h2>';
 		global $wpdb;
@@ -202,6 +269,14 @@ class Additional_Sticker_Admin {
 			// 	echo '</li>';
 			// }
 			// echo '</ul>';
+			// 
+			echo '<h2>上传表情文件</h2>';
+			echo '<p>请上传后缀为spck的表情文件</p>';
+			echo '<form method="post" action="' . esc_url(admin_url('admin.php?page=additional-sticker&action=upload')) . '" enctype="multipart/form-data">';
+			echo '<input type="hidden" name="action" value="upload">';
+			echo '<input type="file" name="sticker_file" accept=".spck" required>';
+			echo '<input type="submit" class="button button-primary" value="上传表情">';
+			echo '</form>';
 		
 
 	}

@@ -12,14 +12,14 @@ class Additional_sticker_functions {
      *
      * @since 1.1.1
      * @param string $source_dir source dir
-     * @return bool
+     * @return array
      */
     public static function add_stiker($source_dir){
 
         global $wpdb;
 
         if (is_null($source_dir) || !file_exists($source_dir . "/info.json") || !is_admin()) {
-            return false;
+            return array(false, 1,'info.json not exists');
         }
 
         $sticker_dir = WP_CONTENT_DIR . "/" . "stickers";
@@ -30,9 +30,14 @@ class Additional_sticker_functions {
         //covert info.json to array
         $data = json_decode(file_get_contents($source_dir . "/info.json"));
 
+        $rn = $wpdb->query("SELECT * FROM `{$wpdb->prefix}sticker_group` WHERE group_id='{$data->id}';");
+        if ($rn != 0 || $rn === false) {
+            return array(false, 2, 'already exists');
+        }
+
 
         if (is_null($data) || !isset($data->id) || !isset($data->name) || !isset($data->icon) || !isset($data->stickers)) {
-            return false;
+            return array(false, 3, 'format error');
         }
 
 
@@ -43,17 +48,14 @@ class Additional_sticker_functions {
         
 
         //copy file
-        $source_files = scandir($source_dir);
-        foreach ($source_files as $v) {
-            $f = $source_dir . "/" . $v;
+        //$source_files = scandir($source_dir);
+        foreach ($data->stickers as $v) {
+            $fname = $v->src;
+            $f = $source_dir . "/" . $fname;
 
-            if (is_dir($f) || $v === "info.json") {
-                continue;
-            }
-
-            if (!copy($f, $s . "/" . $v)) {
-                wp_die($f, $s . "/" . $v, "");
-                return false;
+            if (!copy($f, $s . "/" . $fname)) {
+                wp_die("failed when copy {$f} to {$s}/{$fname}", "Copy failed");
+                return array(false, 4, 'copy failed');
             }
 
         }
@@ -70,7 +72,7 @@ class Additional_sticker_functions {
         ('{$data->id}', '{$data->name}', '{$data->icon}', '{$notice}', '{$author}', '{$copyright}', '{$url}');";
 
         if (!$wpdb->query($info_sql)) {
-            return false;
+            return array(false, 5, 'insert group info failed');
         }
 
         $stickers_sql = "INSERT INTO `{$wpdb->prefix}stickers` (`id`, `group_id`, `name`, `src`, `data`) VALUES ";
@@ -83,10 +85,10 @@ class Additional_sticker_functions {
         }
 
         if (!$wpdb->query($stickers_sql)) {
-            return false;
+            return array(false, 6, 'insert stickers failed');
         }
 
-        return true;
+        return array(true, 0, 'success');
     }
 
     /**
@@ -143,6 +145,8 @@ class Additional_sticker_functions {
             }
         }
         rmdir($dir);
+
+        return true;
     }
 
     /**
