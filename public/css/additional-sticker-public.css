@@ -15,8 +15,8 @@
 .sticker-panel label {
     /* all: initial; */
     
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 
@@ -137,8 +137,8 @@
     box-sizing: border-box;
 
     background-color: #00000000;
-    height: 2.5em;
-    width: 2.5em;
+    height: 2.7em;
+    width: 2.7em;
 
     margin: 0em 0.4em;
     padding: 0.3em;
