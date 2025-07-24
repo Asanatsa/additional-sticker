@@ -37,7 +37,7 @@ class Additional_Sticker_Activator
 			return true;
 		}
 
-		include dirname(__FILE__) . "/". "class-additional-sticker-functions.php";
+		require_once dirname(__FILE__) . "/". "class-additional-sticker-functions.php";
 
 		// init db (create table)
 		Additional_sticker_functions::init_db();

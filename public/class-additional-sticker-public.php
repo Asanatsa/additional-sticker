@@ -137,71 +137,74 @@ class Additional_Sticker_Public
 		global $wpdb;
 		$db_prefix = $wpdb->prefix;
 
-		$rad_html = "";
-		$sticker_list_html = "";
+		$radio_html = '';
+		$sticker_list_html = '';
 
 		$sticker_groups = $wpdb->get_results("SELECT * FROM `{$db_prefix}sticker_group`;");
 
 		//莫得内容就返回“noting”
 		if (count($sticker_groups) === 0) {
-			$defaults['comment_field'] .= "<div class='sticker-panel'>
-			<img src='{$this->sticker_url}/icon.png'>
-			<div class='sticker-popmenu'>
-			<div class='sticker-rad-list'>
-			</div><div class='sticker-list'>
-			<div style='width: 100%;margin-top: 30px;text-align: center;color: gray;'>
-			Nothing.</div></div></div></div>";
-
+			$defaults['comment_field'] .= '
+				<div class="sticker-panel">
+					<img src="' . esc_url($this->sticker_url) . '/icon.png">
+					<div class="sticker-popmenu">
+						<div class="sticker-rad-list"></div>
+						<div class="sticker-list">
+							<div style="width: 100%;margin-top: 30px;text-align: center;color: gray;">
+								Nothing.
+							</div>
+						</div>
+					</div>
+				</div>
+			';
 			return $defaults;
 		}
 
 
 		foreach ($sticker_groups as $a => $single_group) {
 
-			$is_hidden = "";
-			$is_checked = "";
 
-			if ($a === 0) {
-				$is_checked = "checked";
-			} else {
-				$is_hidden = "hidden";
-			}
+			$is_checked = $a === 0 ? 'checked' : '';
+			$is_hidden = $a === 0 ? '' : 'hidden';
+			
 
 			// output radio element
-			$rad_html .= "<input type='radio' class='sticker-rad' id='{$single_group->group_id}' name='sticker-select' onclick='selectStickers()' {$is_checked}>
-			<label for='{$single_group->group_id}'>
-			<img class='sticker-logo-thumb' loading='lazy' title='{$single_group->name}' src='{$this->sticker_url}/{$single_group->group_id}/{$single_group->icon}' oncontextmenu='return false;' ondragstart='return false;'>
-			</label>";
+			$radio_html .= '
+				<input type="radio" class="sticker-rad" id="' . esc_attr($single_group->group_id) . '" name="sticker-select" onclick="selectStickers()" ' . $is_checked . '>
+				<label for="' . esc_attr($single_group->group_id) . '">
+					<img class="sticker-logo-thumb" loading="lazy" title="' . esc_attr($single_group->name) . '" src="' . esc_url($this->sticker_url . '/' .$single_group->group_id . '/' . $single_group->icon ) . '" oncontextmenu="return false;" ondragstart="return false;">
+				</label>
+			';
 
-			$stickers = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$single_group->group_id}';");
-			$g_html = "<div class='sticker-sublist' id='sticker-{$single_group->group_id}' data-id='{$single_group->group_id}' {$is_hidden}>";
+			$stickers = $wpdb->get_results($wpdb->prepare("SELECT * FROM `{$db_prefix}stickers` WHERE group_id=%s;",$single_group->group_id));
+			$group_html = '<div class="sticker-sublist" id="' . esc_attr("sticker-" . $single_group->group_id) . '" data-id="' . esc_attr($single_group->group_id) . '" ' . $is_hidden . '>';
 
 			// output body elements
 			if (count($stickers) !== 0) {
 				foreach ($stickers as $b => $s) {
-					$g_html .= "<img class='sticker-img' title='{$s->name}' data-name='{$s->id}' onclick='clickSticker(event)' loading='lazy' src='{$this->sticker_url}/{$s->group_id}/{$s->src}' oncontextmenu='return false;' ondragstart='return false;'>";
+					$group_html .= '<img class="sticker-img" title="' . esc_attr($s->name) . '" data-name="' . esc_attr($s->id) . '" onclick="clickSticker(event)" loading="lazy" src="' . esc_url($this->sticker_url . '/' . $s->group_id . '/' . $s->src) . '" oncontextmenu="return false;" ondragstart="return false;">';
 					//add notice (if have)
-					if ($b + 1 === count($stickers)) {
-						//$g_html .= "<br><span class='sticker-copyright' id='copyright-{$single_group->group_id}'>{$single_group->description}</span>";
-					}
+					// if ($b + 1 === count($stickers)) {
+					// 	//$group_html .= "<br><span class='sticker-copyright' id='copyright-{$single_group->group_id}'>{$single_group->description}</span>";
+					// }
 				}
 			} else {
-				$g_html .= '<div style="width: 100%;margin-top: 30px;text-align: center;color: gray;">Nothing.</div>';
+				$group_html .= '<div style="width: 100%;margin-top: 30px;text-align: center;color: gray;">Nothing.</div>';
 			}
-
-			$g_html .= '</div>';
-			$g_html .= "<span class='sticker-copyright' id='copyright-{$single_group->group_id}' {$is_hidden}>{$single_group->copyright}</span>";
-			$sticker_list_html .= $g_html;
+			$group_html .= '</div>';
+			$group_html .= '<span class="sticker-copyright" id="copyright-' . esc_attr($single_group->group_id) . '" ' . $is_hidden . '>' . esc_attr($single_group->copyright) . '</span>';
+			$sticker_list_html .= $group_html;
 		}
 
 
-		$out_html = "<div class='sticker-panel'>
-		<img src='{$this->sticker_url}/icon.png'>
-		<div class='sticker-popmenu'>
-		<div class='sticker-rad-list'>{$rad_html}</div>
-		<div class='sticker-list'>{$sticker_list_html}</div>
-		</div>
-		</div>";
+		$out_html = '<div class="sticker-panel">
+						<img src="' . esc_url($this->sticker_url) . '/icon.png">
+						<div class="sticker-popmenu">
+							<div class="sticker-rad-list">' . $radio_html . '</div>
+							<div class="sticker-list">' . $sticker_list_html . '</div>
+						</div>
+					</div>';
+
 
 		$defaults['comment_field'] .= $out_html;
 		return $defaults;
@@ -210,7 +213,7 @@ class Additional_Sticker_Public
 
 
 	/**
-	 * for insert sticker to the comment text
+	 * insert sticker to the comment text
 	 *
 	 * @param string $comment_text
 	 * @return string
@@ -222,7 +225,7 @@ class Additional_Sticker_Public
 		$prg_text = $comment_text;
 
 		while (true) {
-			if (!preg_match('/\{(\w{1,10})#(\w{1,10})\}/i', $prg_text, $match_text_array)) {
+			if (!preg_match('/\{(\w{1,15})#(\w{1,10})\}/i', $prg_text, $match_text_array)) {
 				break; //break loop when dosen't match any stickertext
 			}
 
@@ -233,7 +236,7 @@ class Additional_Sticker_Public
 			if (array_key_exists($md5_key, self::$cache_sticker)) {
 				$sticker_data = self::$cache_sticker[$md5_key];
 			} else {
-				$sticker_data = $wpdb->get_results("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='{$match_text_array[1]}' AND id='{$match_text_array[2]}';");
+				$sticker_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM `{$db_prefix}stickers` WHERE group_id='%s' AND id='%s';", $match_text_array[1], $match_text_array[2]));
 				self::$cache_sticker[$md5_key] = $sticker_data;
 			}
 
@@ -243,7 +246,7 @@ class Additional_Sticker_Public
 				continue;
 			}
 
-			$sticker_img_html = "<img src='{$this->sticker_url}/{$sticker_data[0]->group_id}/{$sticker_data[0]->src}' title='{$sticker_data[0]->name}' class='text-sticker-img' loading='lazy' oncontextmenu='return false;' ondragstart='return false;' onmousedown='document.selection.empty()'>";
+			$sticker_img_html = '<img src="' . esc_url($this->sticker_url . '/' . $sticker_data[0]->group_id . '/' . $sticker_data[0]->src) . '" title="' . esc_attr($sticker_data[0]->name) . '" class="text-sticker-img" loading="lazy" oncontextmenu="return false;" ondragstart="return false;" onmousedown="document.selection.empty()">';
 			$prg_text = str_replace($match_text_array[0], $sticker_img_html, $prg_text);
 		}
 

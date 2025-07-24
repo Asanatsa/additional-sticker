@@ -47,10 +47,12 @@ class Additional_Sticker_Admin {
 	 * @var string
 	 * @access private
 	 */
-	private $notice_type = array(array('type' => 'error', 'dismissible' => true, array('additional_classes' => 'notice-alt')),
+	private $notice_type = array(
+		array('type' => 'error', 'dismissible' => true, array('additional_classes' => 'notice-alt')),
 		array('type' => 'success', 'dismissible' => true, array('additional_classes' => 'notice-alt')),
 		array('type' => 'warning', 'dismissible' => true, array('additional_classes' => 'notice-alt')),
-		array('type' => 'info', 'dismissible' => true, array('additional_classes' => 'notice-alt')));
+		array('type' => 'info', 'dismissible' => true, array('additional_classes' => 'notice-alt'))
+	);
 
 	/**
 	 * Initialize the class and set its properties.
@@ -109,8 +111,8 @@ class Additional_Sticker_Admin {
 		 */
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'jquery-ui-sortable' , '', array( 'jquery' ));
-		wp_enqueue_script('jquery-ui-touch-punch', plugin_dir_url( __FILE__ ) . 'js/lib/jquery.ui.touch-punch.js', array('jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-sortable'), '0.2.3', false);
-		wp_enqueue_script( $this->additional_sticker, plugin_dir_url( __FILE__ ) . 'js/additional-sticker-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'jquery-ui-touch-punch', plugin_dir_url( __FILE__ ) . 'js/lib/jquery.ui.touch-punch.js', array( 'jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-sortable' ), '0.2.3', false );
+		wp_enqueue_script( $this->additional_sticker, plugin_dir_url( __FILE__ ) . 'js/additional-sticker-admin.js', array( 'jquery' ), $this->version, false  );
 
 	}
 
@@ -131,16 +133,16 @@ class Additional_Sticker_Admin {
 		echo '<h1>Additional sticker</h1>';
 
 
-		if (isset($_GET['action'])){
-			include plugin_dir_path( __FILE__ ) . "../includes/". "class-additional-sticker-functions.php";
-			switch ($_GET['action']) {
+		if ( isset( $_GET['action'] ) ) {
+			require_once plugin_dir_path( __FILE__ ) . "../includes/". "class-additional-sticker-functions.php";
+			switch ( $_GET['action'] ) {
 
 				case 'delete':
-					if (isset($_GET['group_id'])) {
-						if (Additional_sticker_functions::remove_sticker($_GET['group_id'])) {
-							wp_admin_notice('删除表情成功', $this->notice_type[1]);
+					if ( isset($_GET['group_id']) ) {
+						if ( Additional_sticker_functions::remove_sticker( $_GET['group_id'] ) ) {
+							wp_admin_notice( '删除表情成功', $this->notice_type[1] );
 						} else {
-							wp_admin_notice('删除表情失败', $this->notice_type[0]);
+							wp_admin_notice( '删除表情失败', $this->notice_type[0] );
 						}
 					}
 
@@ -150,38 +152,42 @@ class Additional_Sticker_Admin {
 
 
 				case 'upload':
-					if (isset($_FILES['sticker_file']) && $_FILES['sticker_file']['error'] === UPLOAD_ERR_OK) {
+					if ( isset( $_FILES['sticker_file'] ) && $_FILES['sticker_file']['error'] === UPLOAD_ERR_OK ) {
 						$tmp_dir = get_temp_dir();
 						$zip = new ZipArchive();
-						$zip_dirname = wp_generate_password(12, false);
-						$upload_file = $tmp_dir . basename($_FILES['sticker_file']['name']);
-						if (move_uploaded_file($_FILES['sticker_file']['tmp_name'], $upload_file)) {
-							if ($zip->open($upload_file) === TRUE) {
-								$zip->extractTo($tmp_dir . $zip_dirname);
+						$zip_dirname = wp_generate_password( 12, false );
+						$upload_file = $tmp_dir . basename( $_FILES['sticker_file']['name'] );
+						if (move_uploaded_file( $_FILES['sticker_file']['tmp_name'], $upload_file) ) {
+							if ( $zip->open( $upload_file ) === TRUE ) {
+								$zip->extractTo( $tmp_dir . $zip_dirname );
 								$zip->close();
-								$result = Additional_sticker_functions::add_stiker($tmp_dir . $zip_dirname);
+								$result = Additional_sticker_functions::add_stiker( $tmp_dir . $zip_dirname );
 								if ($result[0]) {
-									wp_admin_notice('上传表情成功', $this->notice_type[1]);
+									wp_admin_notice( '上传表情成功', $this->notice_type[1] );
 								} else {
-									if ($result[1] === 2){
-										wp_admin_notice('表情已存在', $this->notice_type[2]);
+									if ( $result[1] === 2 ) {
+										wp_admin_notice( '表情已存在', $this->notice_type[2] );
 									}else{
-										wp_admin_notice('上传表情失败', $this->notice_type[0]);
+										if( wp_get_environment_type() === 'development' ) {
+											wp_admin_notice( '上传表情失败: ' . $result[2], $this->notice_type[0] );
+										} else {
+											wp_admin_notice( '上传表情失败', $this->notice_type[0] );
+										}
 									}
 								}
 									
 							} else {
-								wp_admin_notice('解压缩文件失败', $this->notice_type[0]);
+								wp_admin_notice( '解压缩文件失败', $this->notice_type[0] );
 							}
 
-							Additional_sticker_functions::rm_all_dir($tmp_dir . $zip_dirname);
-							unlink($upload_file);
+							Additional_sticker_functions::rm_all_dir( $tmp_dir . $zip_dirname );
+							unlink( $upload_file );
 
 						} else {
-							wp_admin_notice('上传文件失败', $this->notice_type[0]);
+							wp_admin_notice( '上传文件失败', $this->notice_type[0] );
 						}
 					} else {
-						wp_admin_notice('没有选择文件或文件上传错误', $this->notice_type[0]);
+						wp_admin_notice( '没有选择文件或文件上传错误', $this->notice_type[0] );
 					}
 
 					echo '<script>history.pushState(null, null, "admin.php?page=additional-sticker");</script>';
@@ -190,7 +196,7 @@ class Additional_Sticker_Admin {
 				
 
 				default:
-					wp_admin_notice('( O_o) ?', $this->notice_type[2]);
+					wp_admin_notice( '( O_o) ?', $this->notice_type[2] );
 					break;
 			}
 			
@@ -203,62 +209,57 @@ class Additional_Sticker_Admin {
 
 		echo '<h2>已安装表情列表</h2>';
 		global $wpdb;
-		$stickers = $wpdb->get_results("SELECT * FROM `{$wpdb->prefix}sticker_group`;");
+		$stickers = $wpdb->get_results( "SELECT * FROM `{$wpdb->prefix}sticker_group`;" );
 
-		if( count($stickers) === 0) {
-			echo '<p>暂无表情</p>';
-		} else {
+		if( count( $stickers ) === 0 ): ?>
+			<p>暂无表情</p>
+		<?php else: ?>
 
-			echo '<table class="wp-list-table widefat fixed striped" >';
-			echo '<thead><tr>';
-			echo '<th scope="col" class="manage-column column-cb check-column"><input type="checkbox" id="group-select-all">';
-			echo '<label for="group-select-all" class="screen-reader-text">全选</th>';
+			<table class="wp-list-table widefat fixed striped">
+				<thead>
+					<tr>
+						<th scope="col" class="manage-column column-cb check-column">
+							<input type="checkbox" id="group-select-all">
+							<label for="group-select-all" class="screen-reader-text">全选</label>
+						</th>
+						<th scope="col" class="manage-column column-primary column-title">名称</th>
+						<th scope="col" class="manage-column">表情组ID</th>
+						<th scope="col" class="manage-column">描述</th>
+						<th scope="col" class="manage-column">作者</th>
+						<th scope="col" class="manage-column">链接</th>
+					</tr>
+				</thead>
+				<tbody id="sticker-list">
 
-			echo '<th scope="col" class="manage-column column-primary column-title">名称</th>';
-			echo '<th scope="col" class="manage-column">表情组ID</th>';
-			echo '<th scope="col" class="manage-column">描述</th>';
-			echo '<th scope="col" class="manage-column">作者</th>';
-			echo '<th scope="col" class="manage-column">链接</th>';
-			//echo '<th>操作</th>';
-			echo '</tr></thead>';
+			
+			<?php foreach ( $stickers as $sticker ): ?>
+				<tr id="<?php echo esc_html( $sticker->group_id ); ?>">
+					<th scope="row" class="check-column">
+						<input type="checkbox" class="sticker-checkbox" id="group-checkbox-<?php echo esc_html( $sticker->group_id ); ?>">
+						<label for="group-checkbox-<?php echo esc_html( $sticker->group_id ); ?>" class="screen-reader-text">选择表情</label>
+					</th>
+					<td scope="row" class="column-primary" data-colname="名称">
+						<img src="<?php echo esc_url( WP_CONTENT_URL . '/stickers/' . $sticker->group_id . '/' . $sticker->icon ); ?>" alt="<?php echo esc_attr( $sticker->name ); ?>" style="width: 50px; height: 50px;">
+						<?php echo esc_html( $sticker->name ); ?>
+						<div class="row-actions">
+							<span class="delete">
+								<a href="<?php echo esc_url(admin_url('admin.php?page=additional-sticker&action=delete&group_id=' . $sticker->group_id)); ?>" class="delete-sticker" data-group-id="<?php echo esc_html($sticker->group_id); ?>">删除</a>
+							</span>
+						</div>
+						<button type="button" class="toggle-row"></button>
+					</td>
+					<td scope="row" data-colname="表情组ID"><?php echo esc_html( $sticker->group_id ); ?></td>
+					<td scope="row" data-colname="描述"><?php echo esc_html( $sticker->description ); ?></td>
+					<td scope="row" data-colname="作者"><?php echo esc_html( $sticker->author ); ?></td>
+					<td scope="row" data-colname="链接"><a href="<?php echo esc_url( $sticker->url ); ?>" target="_blank"><?php echo esc_html( $sticker->url ); ?></a></td>
+				</tr>
+			<?php endforeach; ?>
 
-			echo '<tbody id="sticker-list">';
+			</tbody>
+			</table>
 
-			foreach ($stickers as $sticker) {
-				
-				echo '<tr id="' . esc_html($sticker->group_id) . '">';
-
-				// checkbox
-				echo '<th scope="row" class="check-column"><input type="checkbox" class="sticker-checkbox" id="group-checkbox-' . esc_html($sticker->group_id) . '">';
-				echo '<label for="group-checkbox-' . esc_html($sticker->group_id) . '" class="screen-reader-text">选择表情</label>';
-				echo '</th>';
-
-				// name
-				echo '<td scope="row" class="column-primary" data-colname="名称">';
-				echo '<img src="' . esc_url(WP_CONTENT_URL . '/stickers/' . $sticker->group_id . '/' . $sticker->icon) . '" alt="' . esc_attr($sticker->name) . '" style="width: 50px; height: 50px;">';
-				echo esc_html($sticker->name); 
-				echo '<div class="row-actions">';
-				echo '<span class="delete"><a href="' . esc_url(admin_url('admin.php?page=additional-sticker&action=delete&group_id=' . $sticker->group_id)) . '" class="delete-sticker" data-group-id="' . esc_html($sticker->group_id) . '">删除</a></span>';
-				echo '</div>';
-				// wordpress toggle button
-				echo '<button type="button" class="toggle-row"></button>';
-				echo '</td>';
-
-				// group_id
-				echo '<td scope="row" data-colname="表情组ID">' . esc_html($sticker->group_id) . '</td>';
-				
-				
-				echo '<td scope="row" data-colname="描述">' . esc_html($sticker->description) . '</td>';
-				echo '<td scope="row" data-colname="作者">' . esc_html($sticker->author) . '</td>';
-				echo '<td scope="row" data-colname="链接"><a href="' . esc_url($sticker->url) . '" target="_blank">' . esc_html($sticker->url) . '</a></td>';
-				//echo '<td scope="row"><a href="#" class="button remove-sticker" data-group-id="' . esc_html($sticker->group_id) . '">删除</a></td>';
-				echo '</tr>';
-			}
-
-			echo '</tbody>';
-			echo '</table>';
-		}
-			// echo '<ul id="sticker-list">';
+			<?php endif; ?>
+			<!-- // echo '<ul id="sticker-list">';
 			// foreach ($stickers as $sticker) {
 			// 	echo '<li class="sticker-item">';
 			// 	echo '<img src="' . esc_url(WP_CONTENT_DIR . '/stickers/' . $sticker->group_id . '/' . $sticker->icon) . '" alt="' . esc_attr($sticker->name) . '">';
@@ -266,14 +267,16 @@ class Additional_Sticker_Admin {
 			// 	echo '</li>';
 			// }
 			// echo '</ul>';
-			// 
-			echo '<h2>上传表情文件</h2>';
-			echo '<p>请上传后缀为spck的表情文件</p>';
-			echo '<form method="post" action="' . esc_url(admin_url('admin.php?page=additional-sticker&action=upload')) . '" enctype="multipart/form-data">';
-			echo '<input type="hidden" name="action" value="upload">';
-			echo '<input type="file" name="sticker_file" accept=".spck" required>';
-			echo '<input type="submit" class="button button-primary" value="上传表情">';
-			echo '</form>';
+			//  -->
+			
+			<h2>上传表情文件</h2>
+			<p>请上传后缀为spck的表情文件</p>
+			<form method="post" action="<?php echo esc_url(admin_url( 'admin.php?page=additional-sticker&action=upload' )); ?>" enctype="multipart/form-data">
+				<input type="hidden" name="action" value="upload">
+				<input type="file" name="sticker_file" accept=".spck" required>
+				<input type="submit" class="button button-primary" value="上传表情">
+			</form>
+			<?php
 		
 
 	}
