@@ -10,13 +10,13 @@ if len(sys.argv) == 1:
 base_dir = Path(sys.argv[1])
 print(base_dir)
 
-files = base_dir.glob("*.png")
+files = base_dir.glob("*.[pg][ni][gf]")
 
 l = []
 for f in files:
     l.append({"name":"", "id":f.stem, "src":f.name})
 
-o = {"name":"", "id":base_dir.stem, "author":"", "notice":"", "icon":"","url":"", "stickers":l}
+o = {"name":"", "id":base_dir.stem, "author":"", "notice":"", "icon":"","url":"", "copyright": "", "stickers":l}
 
 print(j.dumps(o, indent = 4))
 Path(base_dir, "info.json").write_text(j.dumps(o, indent = 4), "UTF-8")
