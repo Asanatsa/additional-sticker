@@ -65,7 +65,7 @@ class Additional_Sticker_Public
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.1.1
+	 * @since    1.0.0
 	 * @param      string    $additional_sticker       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -128,7 +128,8 @@ class Additional_Sticker_Public
 	 * for insert sticker panel 
 	 *
 	 * @param Array $defaults
-	 * @return Array
+	 * @return Array $defaults
+	 * @since 1.0.0
 	 */
 
 	//TODO: optimize logic
@@ -216,7 +217,8 @@ class Additional_Sticker_Public
 	 * insert sticker to the comment text
 	 *
 	 * @param string $comment_text
-	 * @return string
+	 * @return string 
+	 * @since 1.0.0
 	 */
 	public function insert_stickers($comment_text)
 	{

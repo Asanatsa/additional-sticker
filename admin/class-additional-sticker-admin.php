@@ -116,6 +116,11 @@ class Additional_Sticker_Admin {
 
 	}
 
+	/**
+	 * Register the admin menu.
+	 *
+	 * @since    2.0.0
+	 */
 	public function additional_sticker_menu_init() {
 		add_menu_page(
 			__( 'Additional Sticker', 'additional-sticker' ),
@@ -128,6 +133,11 @@ class Additional_Sticker_Admin {
 	}
 
 
+	/**
+	 * Render the admin page
+	 *
+	 * @since    2.0.0
+	 */
 	public function render_additional_sticker_page() {
 
 		echo '<div class="wrap">';
@@ -249,7 +259,7 @@ class Additional_Sticker_Admin {
 				<thead>
 					<tr>
 						<th scope="col" class="manage-column column-cb check-column">
-							<input type="checkbox" id="group-select-all">
+							<input type="checkbox" id="group-select-all" onchange="updateListData();">
 							<label for="group-select-all" class="screen-reader-text"><?php _e( 'Select all', 'additional-sticker' ); ?></label>
 						</th>
 						<th scope="col" class="manage-column column-primary column-title"><?php _e( 'Name', 'additional-sticker' ); ?></th>
