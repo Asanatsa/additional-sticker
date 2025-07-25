@@ -130,7 +130,7 @@ class Additional_Sticker_Admin {
 
 
 	public function render_additional_sticker_page() {
-		echo '<h1>Additional sticker</h1>';
+		echo '<h1 class="wp-heading-inline">Additional sticker</h1>';
 
 
 		if ( isset( $_GET['action'] ) ) {
@@ -195,6 +195,34 @@ class Additional_Sticker_Admin {
 					break;
 				
 
+				case 'update':
+					if ( isset( $_POST['data'] ) && !empty( $_POST['data'] ) ) {
+
+						global $wpdb;
+						$data = json_decode( stripslashes( $_POST['data'] ), true );
+
+						if ( is_array( $data ) && count( $data ) > 0 ) {
+							foreach ( $data as $i => $group ) {
+								$enabled = $group['checked'] ? 1 : 0;
+								$wpdb->update(
+									"{$wpdb->prefix}sticker_group",
+									array( 'enabled' => $enabled, 
+											'sort' => $i ),
+									array( 'group_id' => $group['id'] )
+								);
+							}
+							wp_admin_notice( '更新成功', $this->notice_type[1] );
+						} else {
+							wp_admin_notice( '数据错误', $this->notice_type[0] );
+						}
+					} else {
+						wp_admin_notice( '无更改', $this->notice_type[2] );
+					}
+					
+					echo '<script>history.pushState(null, null, "admin.php?page=additional-sticker");</script>';
+
+					break;
+
 				default:
 					wp_admin_notice( '( O_o) ?', $this->notice_type[2] );
 					break;
@@ -209,12 +237,14 @@ class Additional_Sticker_Admin {
 
 		echo '<h2>已安装表情列表</h2>';
 		global $wpdb;
-		$stickers = $wpdb->get_results( "SELECT * FROM `{$wpdb->prefix}sticker_group`;" );
+		$stickers = $wpdb->get_results( "SELECT * FROM `{$wpdb->prefix}sticker_group` ORDER BY `sort`;" );
 
 		if( count( $stickers ) === 0 ): ?>
 			<p>暂无表情</p>
 		<?php else: ?>
-
+			<p><?php printf( __( 'Number of installed stickers: %d', 'additional-sticker' ), count( $stickers ) ); ?></p>
+			<p>拖动表情组来调整表情组的顺序</p>
+			<div class="margin-fix">
 			<table class="wp-list-table widefat fixed striped">
 				<thead>
 					<tr>
@@ -235,12 +265,15 @@ class Additional_Sticker_Admin {
 			<?php foreach ( $stickers as $sticker ): ?>
 				<tr id="<?php echo esc_html( $sticker->group_id ); ?>">
 					<th scope="row" class="check-column">
-						<input type="checkbox" class="sticker-checkbox" id="group-checkbox-<?php echo esc_html( $sticker->group_id ); ?>">
+						<input type="checkbox" class="sticker-checkbox" id="group-checkbox-<?php echo esc_html( $sticker->group_id ); ?>" onchange="updateListData();" <?php echo $sticker->enabled == 1 ? 'checked':''  ?>>
 						<label for="group-checkbox-<?php echo esc_html( $sticker->group_id ); ?>" class="screen-reader-text">选择表情</label>
 					</th>
 					<td scope="row" class="column-primary" data-colname="名称">
-						<img src="<?php echo esc_url( WP_CONTENT_URL . '/stickers/' . $sticker->group_id . '/' . $sticker->icon ); ?>" alt="<?php echo esc_attr( $sticker->name ); ?>" style="width: 50px; height: 50px;">
-						<?php echo esc_html( $sticker->name ); ?>
+						<div style="display: flex; align-items: center;">
+							<img src="<?php echo esc_url( WP_CONTENT_URL . '/stickers/' . $sticker->group_id . '/' . $sticker->icon ); ?>" alt="<?php echo esc_attr( $sticker->name ); ?>" style="width: 50px; height: 50px; margin-right: 10px;">
+							<?php echo esc_html( $sticker->name ); ?>
+						</div>
+						
 						<div class="row-actions">
 							<span class="delete">
 								<a href="<?php echo esc_url(admin_url('admin.php?page=additional-sticker&action=delete&group_id=' . $sticker->group_id)); ?>" class="delete-sticker" data-group-id="<?php echo esc_html($sticker->group_id); ?>">删除</a>
@@ -258,16 +291,15 @@ class Additional_Sticker_Admin {
 			</tbody>
 			</table>
 
+			<form action="<?php echo esc_url(admin_url( 'admin.php?page=additional-sticker&action=update' )); ?>" method="post" id="bulk-update-form">
+				<input type="text" name="data" id="bulk-data">
+				<?php submit_button(); ?>
+			</form>
+			</div>
+
 			<?php endif; ?>
-			<!-- // echo '<ul id="sticker-list">';
-			// foreach ($stickers as $sticker) {
-			// 	echo '<li class="sticker-item">';
-			// 	echo '<img src="' . esc_url(WP_CONTENT_DIR . '/stickers/' . $sticker->group_id . '/' . $sticker->icon) . '" alt="' . esc_attr($sticker->name) . '">';
-			// 	echo '<span>' . esc_html($sticker->name) . '</span>';
-			// 	echo '</li>';
-			// }
-			// echo '</ul>';
-			//  -->
+
+
 			
 			<h2>上传表情文件</h2>
 			<p>请上传后缀为spck的表情文件</p>

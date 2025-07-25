@@ -130,6 +130,7 @@ class Additional_sticker_functions {
 			`author` text NOT NULL,
             `copyright` text NOT NULL,
 			`url` text NOT NULL,
+            `sort` int NOT NULL DEFAULT -1,
             `enabled` int NOT NULL DEFAULT 1,
 			PRIMARY KEY (`group_id`)
 		  ) ENGINE=`InnoDB`;";// MyISAM dosen't support large-size key

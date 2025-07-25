@@ -140,7 +140,7 @@ class Additional_Sticker_Public
 		$radio_html = '';
 		$sticker_list_html = '';
 
-		$sticker_groups = $wpdb->get_results("SELECT * FROM `{$db_prefix}sticker_group`;");
+		$sticker_groups = $wpdb->get_results("SELECT * FROM `{$db_prefix}sticker_group` ORDER BY `sort`;");
 
 		//莫得内容就返回“noting”
 		if (count($sticker_groups) === 0) {
