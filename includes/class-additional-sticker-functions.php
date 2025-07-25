@@ -173,7 +173,7 @@ class Additional_sticker_functions {
     public static function remove_sticker( $group_id ) {
         global $wpdb;
 
-        if ( is_null( $group_id ) || is_admin() ){
+        if ( is_null( $group_id ) || !is_admin() ){
             return false;
         }
         

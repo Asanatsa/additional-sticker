@@ -13,14 +13,14 @@
  * @package           Additional_Sticker
  *
  * @wordpress-plugin
- * Plugin Name:       自定义表情
- * Plugin URI:        http://www.asanatsa.cc/additional-sticker/
- * Description:       在评论里添加自定义的表情贴纸
+ * Plugin Name:       Additional Sticker
+ * Plugin URI:        http://www.asanatsa.cc/project/additional-sticker/
+ * Description:       A WordPress plugin to add additional stickers to comments.
  * Version:           1.1.1
  * Author:            Asanatsa
  * Author URI:        http://www.asanatsa.cc/
  * License:           GPL-3.0
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       additional-sticker
  * Domain Path:       /languages
  */

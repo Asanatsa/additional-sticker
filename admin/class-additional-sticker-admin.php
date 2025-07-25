@@ -141,9 +141,9 @@ class Additional_Sticker_Admin {
 				case 'delete':
 					if ( isset($_GET['group_id']) ) {
 						if ( Additional_sticker_functions::remove_sticker( $_GET['group_id'] ) ) {
-							wp_admin_notice( '删除表情成功', $this->notice_type[1] );
+							wp_admin_notice( __( 'Deleted successfully', 'additional-sticker' ), $this->notice_type[1] );
 						} else {
-							wp_admin_notice( '删除表情失败', $this->notice_type[0] );
+							wp_admin_notice( __( 'Delete failed', 'additional-sticker' ), $this->notice_type[0] );
 						}
 					}
 
@@ -164,31 +164,31 @@ class Additional_Sticker_Admin {
 								$zip->close();
 								$result = Additional_sticker_functions::add_stiker( $tmp_dir . $zip_dirname );
 								if ($result[0]) {
-									wp_admin_notice( '上传表情成功', $this->notice_type[1] );
+									wp_admin_notice( __( 'Uploaded successfully','additional-sticker' ), $this->notice_type[1] );
 								} else {
 									if ( $result[1] === 2 ) {
-										wp_admin_notice( '表情已存在', $this->notice_type[2] );
+										wp_admin_notice( __( 'Sticker already exists', 'additional-sticker' ), $this->notice_type[2] );
 									}else{
 										if( wp_get_environment_type() === 'development' ) {
 											wp_admin_notice( '上传表情失败: ' . $result[2], $this->notice_type[0] );
 										} else {
-											wp_admin_notice( '上传表情失败', $this->notice_type[0] );
+											wp_admin_notice( __( 'Upload failed', 'additional-sticker' ), $this->notice_type[0] );
 										}
 									}
 								}
 									
 							} else {
-								wp_admin_notice( '解压缩文件失败', $this->notice_type[0] );
+								wp_admin_notice( __( 'Unzip failed', 'additional-sticker' ), $this->notice_type[0] );
 							}
 
 							Additional_sticker_functions::rm_all_dir( $tmp_dir . $zip_dirname );
 							unlink( $upload_file );
 
 						} else {
-							wp_admin_notice( '上传文件失败', $this->notice_type[0] );
+							wp_admin_notice( __( 'Upload failed', 'additional-sticker' ), $this->notice_type[0] );
 						}
 					} else {
-						wp_admin_notice( '没有选择文件或文件上传错误', $this->notice_type[0] );
+						wp_admin_notice( __( 'Error during file upload', 'additional-sticker' ), $this->notice_type[0] );
 					}
 
 					echo '<script>history.pushState(null, null, "admin.php?page=additional-sticker");</script>';
@@ -212,12 +212,12 @@ class Additional_Sticker_Admin {
 									array( 'group_id' => $group['id'] )
 								);
 							}
-							wp_admin_notice( '更新成功', $this->notice_type[1] );
+							wp_admin_notice( __( 'Updated successfully', 'additional-sticker' ), $this->notice_type[1] );
 						} else {
-							wp_admin_notice( '数据错误', $this->notice_type[0] );
+							wp_admin_notice( __( 'Invalid format', 'additional-sticker' ), $this->notice_type[0] );
 						}
 					} else {
-						wp_admin_notice( '无更改', $this->notice_type[2] );
+						wp_admin_notice( __( 'No changes', 'additional-sticker' ), $this->notice_type[2] );
 					}
 					
 					echo '<script>history.pushState(null, null, "admin.php?page=additional-sticker");</script>';
@@ -236,27 +236,27 @@ class Additional_Sticker_Admin {
 
 		
 
-		echo '<h2>已安装表情列表</h2>';
+		echo '<h2>' . __('Installed Stickers', 'additional-sticker') . '</h2>';
 		global $wpdb;
 		$stickers = $wpdb->get_results( "SELECT * FROM `{$wpdb->prefix}sticker_group` ORDER BY `sort`;" );
 
 		if( count( $stickers ) === 0 ): ?>
-			<p>暂无表情</p>
+			<p> <?php _e( 'No results', 'additional-sticker' ); ?></p>
 		<?php else: ?>
 			<p><?php printf( __( 'Number of installed stickers: %d', 'additional-sticker' ), count( $stickers ) ); ?></p>
-			<p>拖动表情组来调整表情组的顺序</p>
+			<p><?php _e( 'Drag items in the list to rearrange the order of sticker groups.', 'additional-sticker' ); ?></p>
 			<table class="wp-list-table widefat fixed striped">
 				<thead>
 					<tr>
 						<th scope="col" class="manage-column column-cb check-column">
 							<input type="checkbox" id="group-select-all">
-							<label for="group-select-all" class="screen-reader-text">全选</label>
+							<label for="group-select-all" class="screen-reader-text"><?php _e( 'Select all', 'additional-sticker' ); ?></label>
 						</th>
-						<th scope="col" class="manage-column column-primary column-title">名称</th>
-						<th scope="col" class="manage-column">表情组ID</th>
-						<th scope="col" class="manage-column">描述</th>
-						<th scope="col" class="manage-column">作者</th>
-						<th scope="col" class="manage-column">链接</th>
+						<th scope="col" class="manage-column column-primary column-title"><?php _e( 'Name', 'additional-sticker' ); ?></th>
+						<th scope="col" class="manage-column"><?php _e( 'Group ID', 'additional-sticker' ); ?></th>
+						<th scope="col" class="manage-column"><?php _e( 'Descripion', 'additional-sticker' ); ?></th>
+						<th scope="col" class="manage-column"><?php _e( 'Author', 'additional-sticker' ); ?></th>
+						<th scope="col" class="manage-column"><?php _e( 'Link', 'additional-sticker' ); ?></th>
 					</tr>
 				</thead>
 				<tbody id="sticker-list">
@@ -268,7 +268,7 @@ class Additional_Sticker_Admin {
 						<input type="checkbox" class="sticker-checkbox" id="group-checkbox-<?php echo esc_html( $sticker->group_id ); ?>" onchange="updateListData();" <?php echo $sticker->enabled == 1 ? 'checked':''  ?>>
 						<label for="group-checkbox-<?php echo esc_html( $sticker->group_id ); ?>" class="screen-reader-text">选择表情</label>
 					</th>
-					<td scope="row" class="column-primary" data-colname="名称">
+					<td scope="row" class="column-primary" data-colname="<?php _e( 'Name', 'additional-sticker' ); ?>">
 						<div style="display: flex; align-items: center;">
 							<img src="<?php echo esc_url( WP_CONTENT_URL . '/stickers/' . $sticker->group_id . '/' . $sticker->icon ); ?>" alt="<?php echo esc_attr( $sticker->name ); ?>" style="width: 50px; height: 50px; margin-right: 10px;">
 							<?php echo esc_html( $sticker->name ); ?>
@@ -276,15 +276,15 @@ class Additional_Sticker_Admin {
 						
 						<div class="row-actions">
 							<span class="delete">
-								<a href="<?php echo esc_url(admin_url('admin.php?page=additional-sticker&action=delete&group_id=' . $sticker->group_id)); ?>" class="delete-sticker" data-group-id="<?php echo esc_html($sticker->group_id); ?>">删除</a>
+								<a href="<?php echo esc_url(admin_url('admin.php?page=additional-sticker&action=delete&group_id=' . $sticker->group_id)); ?>" class="delete-sticker" data-group-id="<?php echo esc_html($sticker->group_id); ?>"><?php _e( 'Delete', 'additional-sticker' ); ?></a>
 							</span>
 						</div>
 						<button type="button" class="toggle-row"></button>
 					</td>
-					<td scope="row" data-colname="表情组ID"><?php echo esc_html( $sticker->group_id ); ?></td>
-					<td scope="row" data-colname="描述"><?php echo esc_html( $sticker->description ); ?></td>
-					<td scope="row" data-colname="作者"><?php echo esc_html( $sticker->author ); ?></td>
-					<td scope="row" data-colname="链接"><a href="<?php echo esc_url( $sticker->url ); ?>" target="_blank"><?php echo esc_html( $sticker->url ); ?></a></td>
+					<td scope="row" data-colname="<?php _e( 'Group ID', 'additional-sticker' ); ?>"><?php echo esc_html( $sticker->group_id ); ?></td>
+					<td scope="row" data-colname="<?php _e( 'Description', 'additional-sticker' ); ?>"><?php echo esc_html( $sticker->description ); ?></td>
+					<td scope="row" data-colname="<?php _e( 'Author', 'additional-sticker' ); ?>"><?php echo esc_html( $sticker->author ); ?></td>
+					<td scope="row" data-colname="<?php _e( 'Link', 'additional-sticker' ); ?>"><a href="<?php echo esc_url( $sticker->url ); ?>" target="_blank"><?php echo esc_html( $sticker->url ); ?></a></td>
 				</tr>
 			<?php endforeach; ?>
 
@@ -300,12 +300,12 @@ class Additional_Sticker_Admin {
 
 
 			
-			<h2>上传表情文件</h2>
-			<p>请上传后缀为spck的表情文件</p>
+			<h2><?php _e( 'Upload Sticker', 'additional-sticker' ); ?></h2>
+			<p><?php _e( 'Please select the file with extension <code>.spck</code>', 'additional-sticker' ); ?></p>
 			<form method="post" action="<?php echo esc_url(admin_url( 'admin.php?page=additional-sticker&action=upload' )); ?>" enctype="multipart/form-data">
 				<input type="hidden" name="action" value="upload">
 				<input type="file" name="sticker_file" accept=".spck" required>
-				<input type="submit" class="button button-primary" value="上传表情">
+				<input type="submit" class="button button-primary" value="<?php _e( 'Upload', 'additional-sticker' ); ?>">
 			</form>
 
 			</div>
