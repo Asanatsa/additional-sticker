@@ -123,13 +123,14 @@ class Additional_Sticker_Admin {
 			'manage_options',
 			"additional-sticker",
 			array( $this, 'render_additional_sticker_page' ),
-			'dashicons-format-image',
-			6
+			'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgZmlsbD0iIzAwMDAwMCIKICAgd2lkdGg9IjgwMHB4IgogICBoZWlnaHQ9IjgwMHB4IgogICB2aWV3Qm94PSIwIDAgMzIgMzIiCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzEiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczEiIC8+CiAgPHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJuYW1lZHZpZXcxIgogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzAwMDAwMCIKICAgICBib3JkZXJvcGFjaXR5PSIwLjI1IgogICAgIGlua3NjYXBlOnNob3dwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5rc2NhcGU6cGFnZWNoZWNrZXJib2FyZD0iMCIKICAgICBpbmtzY2FwZTpkZXNrY29sb3I9IiNkMWQxZDEiCiAgICAgaW5rc2NhcGU6em9vbT0iMC45MjYyNSIKICAgICBpbmtzY2FwZTpjeD0iMzk5LjQ2MDE5IgogICAgIGlua3NjYXBlOmN5PSIzOTguOTIwMzgiCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxNTYzIgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9Ijk3OSIKICAgICBpbmtzY2FwZTp3aW5kb3cteD0iLTgiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii04IgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ic3ZnMSIgLz4KICA8dGl0bGUKICAgICBpZD0idGl0bGUxIj53aW5rPC90aXRsZT4KICA8cGF0aAogICAgIGQ9Im0gMTYuMTg0NzA3LDUuMTM3MTg0OSBjIDYuMTg4LDAgMTEuMjE5LDQuODQ0IDExLjIxOSwxMC45MDYwMDAxIDAsNi4wNjIgLTUuMDMxLDEwLjkwNiAtMTEuMjE5LDEwLjkwNiAtNi4xODgsMCAtMTEuMTg3OTk5OCwtNC44NDQgLTExLjE4Nzk5OTgsLTEwLjkwNiAwLC02LjA2MjAwMDEgNC45OTk5OTk4LC0xMC45MDYwMDAxIDExLjE4Nzk5OTgsLTEwLjkwNjAwMDEgeiBtIDcuMTU2LDEwLjM3NTAwMDEgMC4yNSwtMC42NTYgYyAwLjA5NCwtMC4yNSAtMC4wMzEsLTAuNTMxIC0wLjI4MSwtMC42MjUgbCAtMy42NTYsLTEuMzEzIDMuMzc1LC0xLjkzOCBjIDAuMjE5LC0wLjEyNSAwLjI4MSwtMC40MDYgMC4xNTYsLTAuNjI1IGwgLTAuMzc1LC0wLjYyNTAwMDEgYyAtMC4xMjUsLTAuMjE5IC0wLjQwNiwtMC4yODEgLTAuNTk0LC0wLjE1NiBsIC01LjAzMSwyLjg3NTAwMDEgYyAtMC4yMTksMC4xMjUgLTAuMjUsMC4zMTMgLTAuMjE5LDAuNzE5IDAuMDMxLDAuNDA2IDAuMDk0LDAuNTYzIDAuMzEzLDAuNjU2IGwgNS40NjksMS45NjkgYyAwLjIxOSwwLjA5NCAwLjUsLTAuMDYzIDAuNTk0LC0wLjI4MSB6IG0gLTEwLjI4MSwtNS4wMzEgaCAtMS4yODEgYyAtMC4zNDQsMCAtMC41OTQsMC4yODEgLTAuNTk0LDAuNjI1IHYgMy4xMjUgYyAwLDAuMzQ0IDAuMjUsMC42NTYgMC41OTQsMC42NTYgaCAxLjI4MSBjIDAuMzEzLDAgMC42MjUsLTAuMzEzIDAuNjI1LC0wLjY1NiB2IC0zLjEyNSBjIDAsLTAuMzQ0IC0wLjMxMywtMC42MjUgLTAuNjI1LC0wLjYyNSB6IG0gLTAuOTM4LDcuNTYyIC0xLjIxOSwwLjQwNiBjIC0wLjEyNSwwLjAzMSAtMC4yMTksMC4xMjUgLTAuMjUsMC4yMTkgLTAuMDYzLDAuMDk0IC0wLjA2MywwLjIxOSAtMC4wMzEsMC4zNDQgMC4wMzIsMC4xMjUgMS4xMjUsMy4yODEgNS41NjMsMy4yNSA0LjQzOCwwLjAzMSA1LjU2MywtMy4xMjUgNS41OTQsLTMuMjUgMC4wMzEsLTAuMTI1IDAuMDMxLC0wLjI1IC0wLjAzMSwtMC4zNDQgLTAuMDMxLC0wLjA5NCAtMC4xNTYsLTAuMTg4IC0wLjI4MSwtMC4yMTkgbCAtMS4wNjMsLTAuMzc1IC0wLjE1NiwtMC4wMzEgYyAtMC4xODgsMCAtMC4zNDQsMC4xNTYgLTAuNDA2LDAuMzEzIDAsMC4wMzEgLTAuNjg4LDEuOTA2IC0zLjY1NiwxLjkwNiAtMi45MzgsMCAtMy41OTQsLTEuODEzIC0zLjYyNSwtMS45MDYgLTAuMDYzLC0wLjE1NiAtMC4yNSwtMC4zMTMgLTAuNDM4LC0wLjMxMyB6IgogICAgIGlkPSJwYXRoMSIKICAgICBzdHlsZT0iZmlsbDojYjNiM2IzIiAvPgo8L3N2Zz4K'
 		);
 	}
 
 
 	public function render_additional_sticker_page() {
+
+		echo '<div class="wrap">';
 		echo '<h1 class="wp-heading-inline">Additional sticker</h1>';
 
 
@@ -244,7 +245,6 @@ class Additional_Sticker_Admin {
 		<?php else: ?>
 			<p><?php printf( __( 'Number of installed stickers: %d', 'additional-sticker' ), count( $stickers ) ); ?></p>
 			<p>拖动表情组来调整表情组的顺序</p>
-			<div class="margin-fix">
 			<table class="wp-list-table widefat fixed striped">
 				<thead>
 					<tr>
@@ -292,10 +292,9 @@ class Additional_Sticker_Admin {
 			</table>
 
 			<form action="<?php echo esc_url(admin_url( 'admin.php?page=additional-sticker&action=update' )); ?>" method="post" id="bulk-update-form">
-				<input type="text" name="data" id="bulk-data">
+				<input type="text" name="data" id="bulk-data" hidden="true">
 				<?php submit_button(); ?>
 			</form>
-			</div>
 
 			<?php endif; ?>
 
@@ -308,6 +307,8 @@ class Additional_Sticker_Admin {
 				<input type="file" name="sticker_file" accept=".spck" required>
 				<input type="submit" class="button button-primary" value="上传表情">
 			</form>
+
+			</div>
 			<?php
 		
 

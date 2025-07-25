@@ -5,12 +5,31 @@
     box-sizing: border-box !important;
 
 }
+
+
+.sticker-panel {
+    all: initial;
+    position: relative;
+    display: flex;
+
+    height: 3rem;
+    width: 3rem;
+    margin: -0.3em 0.5em 1em 0.5em;
+    /* padding: 0.2em; */
+
+    background-color: #f0f0f0;
+    outline: #e7e7e7 solid 1px;
+    border-radius: 3px;
+}
+
+
 .sticker-panel>img {
     height: 3rem;
     width: 3rem;
 
     /* margin: 0.2rem; */
 }
+
 
 .sticker-panel label {
     /* all: initial; */
@@ -20,24 +39,6 @@
 }
 
 
-
-@media screen and ( max-width: 400px ) {
-    .sticker-popmenu {
-        width: 82vw !important;
-    }
-}
-
-/*禁止保存图片*/
-.text-sticker-img {
-
-    pointer-events: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    /*iOS*/
-    -webkit-touch-callout: none
-}
-
 .sticker-panel img {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -46,20 +47,6 @@
     -webkit-touch-callout: none
 }
 
-.sticker-panel {
-    all: initial;
-    position: relative;
-    display: inline-block;
-
-    height: 3rem;
-    width: 3rem;
-    margin: 0em 0.5em 1em 0.5em;
-    /* padding: 0.2em; */
-
-    background-color: #f0f0f0;
-    outline: #e7e7e7 solid 1px;
-    border-radius: 3px;
-}
 
 
 /* hover弹出元素 */
@@ -159,9 +146,12 @@
     overflow-x: hidden;
 }
 
+
 .sticker-sublist{
     columns: 4em;
 }
+
+
 
 /*表情样式*/
 .sticker-img {
@@ -185,7 +175,11 @@
 
 
 
-/*滚动条样式*/
+
+/**  
+ * 滚动条样式
+ */
+
 .sticker-list::-webkit-scrollbar-button,
 .sticker-rad-list::-webkit-scrollbar-button {
     display: none;
@@ -220,4 +214,19 @@
     display: inline;
     height: 3.5em;
     width: 3.5em;
+
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    /*iOS*/
+    -webkit-touch-callout: none
+}
+
+
+@media screen and ( max-width: 450px ) {
+    .sticker-popmenu {
+        width: 82vw !important;
+        /* left: -10vw; */
+    }
 }
