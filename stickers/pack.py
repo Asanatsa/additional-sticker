@@ -3,6 +3,8 @@ import json as j
 import zipfile as zipf
 from pathlib import *
 
+ids = []
+
 
 def input_id():
     gid = input("ID（15个字符以内，只允许大小写字母和数字） * : ")
@@ -15,8 +17,11 @@ def input_id():
 
 def input_sticker_id():
     sid = input(f"表情的ID（10个字符以内，只允许大小写字母和数字） * : ")
-    if len(sid) <= 10 and sid.isalnum():
+    if len(sid) <= 10 and sid.isalnum() and sid not in ids:
         return sid
+    elif sid in ids:
+        print("ID已存在，请使用其他ID")
+        return input_sticker_id()
     else:
         print("ID必须是10个字符以内的字母或数字")
         return input_sticker_id()
