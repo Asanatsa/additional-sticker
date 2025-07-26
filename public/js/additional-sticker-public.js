@@ -1,21 +1,19 @@
 'use strict';
 
-let radEle = document.getElementsByClassName("sticker-rad");
-let textboxEle = document.getElementById("comment");
+// change textarea element here
+let aStickerCommentbox = document.getElementById("comment");
 
-
+let aStickerRadioEle = document.getElementsByClassName("sticker-rad");
 function clickSticker(event) {
 	let t = event.target
 	let idf = "{" + t.parentElement.dataset.id + "#" + t.dataset.name + "}";
-	textboxEle.value = textboxEle.value + idf;
+	aStickerCommentbox.value = aStickerCommentbox.value + idf;
 }
 
 function selectStickers() {
-	for (let i = 0; i < radEle.length; i++) {
-		let ele = document.getElementById("sticker-" + radEle[i].id);
-		let ele2 = document.getElementById("copyright-" + radEle[i].id);
-		ele2.hidden = !radEle[i].checked;
-		ele.hidden = !radEle[i].checked;
+	for (let i = 0; i < aStickerRadioEle.length; i++) {
+		let ele = document.getElementById("sticker-" + aStickerRadioEle[i].id);
+		ele.hidden = !aStickerRadioEle[i].checked;
 	}
 }
 

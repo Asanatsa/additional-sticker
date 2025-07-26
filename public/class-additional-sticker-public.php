@@ -141,7 +141,7 @@ class Additional_Sticker_Public
 		$radio_html = '';
 		$sticker_list_html = '';
 
-		$sticker_groups = $wpdb->get_results("SELECT * FROM `{$db_prefix}sticker_group` ORDER BY `sort`;");
+		$sticker_groups = $wpdb->get_results("SELECT * FROM `{$db_prefix}sticker_group` WHERE `enabled` = 1 ORDER BY `sort`;");
 
 		//莫得内容就返回“noting”
 		if (count($sticker_groups) === 0) {
@@ -177,23 +177,21 @@ class Additional_Sticker_Public
 				</label>
 			';
 
-			$stickers = $wpdb->get_results($wpdb->prepare("SELECT * FROM `{$db_prefix}stickers` WHERE group_id=%s;",$single_group->group_id));
-			$group_html = '<div class="sticker-sublist" id="' . esc_attr("sticker-" . $single_group->group_id) . '" data-id="' . esc_attr($single_group->group_id) . '" ' . $is_hidden . '>';
+			$stickers = $wpdb->get_results($wpdb->prepare("SELECT * FROM `{$db_prefix}stickers` WHERE group_id=%s ORDER BY `id`;",$single_group->group_id));
+			$group_html = '<div id="' . esc_attr("sticker-" . $single_group->group_id) . '" data-id="' . esc_attr($single_group->group_id) . '" ' . $is_hidden . '>';
+			$group_html .= '<div class="sticker-sublist">';
 
 			// output body elements
 			if (count($stickers) !== 0) {
 				foreach ($stickers as $b => $s) {
 					$group_html .= '<img class="sticker-img" title="' . esc_attr($s->name) . '" data-name="' . esc_attr($s->id) . '" onclick="clickSticker(event)" loading="lazy" src="' . esc_url($this->sticker_url . '/' . $s->group_id . '/' . $s->src) . '" oncontextmenu="return false;" ondragstart="return false;">';
-					//add notice (if have)
-					// if ($b + 1 === count($stickers)) {
-					// 	//$group_html .= "<br><span class='sticker-copyright' id='copyright-{$single_group->group_id}'>{$single_group->description}</span>";
-					// }
 				}
 			} else {
 				$group_html .= '<div style="width: 100%;margin-top: 30px;text-align: center;color: gray;">Nothing.</div>';
 			}
 			$group_html .= '</div>';
-			$group_html .= '<span class="sticker-copyright" id="copyright-' . esc_attr($single_group->group_id) . '" ' . $is_hidden . '>' . esc_attr($single_group->copyright) . '</span>';
+			$group_html .= $single_group->copyright == '' ? '' : '<span class="sticker-copyright" id="copyright-' . esc_attr($single_group->group_id) . '">' . esc_attr($single_group->copyright) . '</span>';
+			$group_html .= '</div>';
 			$sticker_list_html .= $group_html;
 		}
 

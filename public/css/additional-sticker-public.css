@@ -12,22 +12,22 @@
     position: relative;
     display: flex;
 
-    height: 3rem;
-    width: 3rem;
+    height: 2.3rem;
+    width: 2.3rem;
     margin: -0.3em 0.5em 1em 0.5em;
     /* padding: 0.2em; */
 
     background-color: #f0f0f0;
-    outline: #e7e7e7 solid 1px;
+    outline: #dfdfdf solid 1px;
     border-radius: 3px;
 }
 
 
 .sticker-panel>img {
-    height: 3rem;
-    width: 3rem;
+    height: 2.3rem;
+    width: 2.3rem;
 
-    /* margin: 0.2rem; */
+    padding: 0.1rem;
 }
 
 
@@ -139,7 +139,7 @@
 
 /*选择区样式*/
 .sticker-list {
-    height: 80%;
+    height: 76%;
     padding: 1em;
 
     overflow-y: auto;
@@ -148,7 +148,11 @@
 
 
 .sticker-sublist{
-    columns: 4em;
+    /* columns: 4em; */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 4em);
+    grid-column-gap: 0.7em;
+    justify-content: space-around;
 }
 
 
@@ -214,6 +218,9 @@
     display: inline;
     height: 3.5em;
     width: 3.5em;
+
+    max-width: none !important;
+    max-height: none !important;
 
     pointer-events: none;
     -webkit-user-select: none;
