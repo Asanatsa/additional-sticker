@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Additional Sticker\n"
 "POT-Creation-Date: 2025-07-25 18:10+0800\n"
-"PO-Revision-Date: 2025-07-25 18:30+0800\n"
+"PO-Revision-Date: 2025-07-25 22:32+0800\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,7 +141,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid "A WordPress plugin to add additional stickers to comments."
-msgstr "一个在评论中添加表情贴纸的插件"
+msgstr "一个支持在评论里插入自定义表情贴纸的 WordPress 插件"
 
 #. Author of the plugin/theme
 msgid "Asanatsa"
