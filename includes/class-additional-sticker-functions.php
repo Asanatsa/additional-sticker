@@ -60,11 +60,10 @@ class Additional_sticker_functions {
 
         }
 
-        $notice = isset( $data->notice ) ? $data->notice : '';
+        $description = isset( $data->description ) ? $data->description : '';
         $author = isset( $data->author ) ? $data->author : '';
         $url = isset( $data->url ) ? $data->url : '';
         $copyright = isset( $data->copyright ) ? $data->copyright : '';
-
 
         $stickers_sql = "INSERT INTO `{$wpdb->prefix}stickers` (`id`, `group_id`, `name`, `src`, `data`) VALUES ";
         $values = array();
@@ -89,7 +88,7 @@ class Additional_sticker_functions {
             $data->id,
             $data->name,
             $data->icon,
-            $notice,
+            $description,
             $author,
             $copyright,
             $url
